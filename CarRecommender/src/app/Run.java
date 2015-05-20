@@ -1,11 +1,11 @@
 package app;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import model.Car;
 import network.Crawler;
+import database.DatabaseHelper;
 
 public class Run {
 	
@@ -32,6 +32,16 @@ public class Run {
 			System.out.println(carList.get(i).getTown() + "\n");
 		}
 		
+		DatabaseHelper dbhelper = new DatabaseHelper();
+		try {
+			dbhelper.createDB();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

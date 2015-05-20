@@ -9,7 +9,7 @@ import database.DatabaseHelper;
 
 public class Run {
 	
-	public static void main(String[] Args){
+	public static void main(String[] Args) throws SQLException, ClassNotFoundException{
 		
 		System.out.println("Car Recommender");
 		
@@ -33,15 +33,16 @@ public class Run {
 		}
 		
 		DatabaseHelper dbhelper = new DatabaseHelper();
-		try {
-			dbhelper.createDB();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		dbhelper.createDB();
+		
+		
+		dbhelper.insertCarIntoDB(carList.get(0));
+			
+		
+	
+		dbhelper.getCarFromDB();
+			
 	}
 	
 

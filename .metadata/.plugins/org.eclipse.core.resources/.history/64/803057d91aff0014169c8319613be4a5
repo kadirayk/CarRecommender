@@ -56,9 +56,7 @@ public class DatabaseHelper {
 					+ " '" + mCar.getTown() +"')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				return;
-			}
+			System.out.println("------------: " + e.getErrorCode());
 			e.printStackTrace();
 		}
 		
@@ -74,7 +72,6 @@ public class DatabaseHelper {
 //		for(int i = 1; i <= columnCount; i++){
 //			System.out.format("%20s", resultSetMetaData.getColumnName(i) + " | ");
 //		}
-		System.out.println("DB QUERY RESUL---------------------------");
 		
 		while (resultset.next()){
 			System.out.println("");

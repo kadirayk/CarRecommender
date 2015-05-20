@@ -56,7 +56,7 @@ public class DatabaseHelper {
 					+ " '" + mCar.getTown() +"')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
+			if(e.getErrorCode() = 30000){
 				return;
 			}
 			e.printStackTrace();

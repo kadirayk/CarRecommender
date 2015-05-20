@@ -40,27 +40,20 @@ public class DatabaseHelper {
 		}	
 	}
 	
-	public void insertCarIntoDB(Car mCar){
-		try {
-			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into cars values "
-					+ "('"+ mCar.getTitle() + "',"
-					+ " '" + mCar.getBrand() + "',"
-					+ " '" + mCar.getModel() + "',"
-					+ " '" + mCar.getModelDetail() + "',"
-					+  mCar.getYear() + ","
-					+ mCar.getKm() + ","
-					+ " '" + mCar.getColor() + "',"
-					+ mCar.getPrice() + ","
-					+ " '" + mCar.getCity() + "',"
-					+ " '" + mCar.getTown() +"')");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				return;
-			}
-			e.printStackTrace();
-		}
+	public void insertCarIntoDB(Car mCar) throws SQLException{
+		
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		connection.createStatement().execute("insert into cars values "
+				+ "('"+ mCar.getTitle() + "',"
+				+ " '" + mCar.getBrand() + "',"
+				+ " '" + mCar.getModel() + "',"
+				+ " '" + mCar.getModelDetail() + "',"
+				+  mCar.getYear() + ","
+				+ mCar.getKm() + ","
+				+ " '" + mCar.getColor() + "',"
+				+ mCar.getPrice() + ","
+				+ " '" + mCar.getCity() + "',"
+				+ " '" + mCar.getTown() +"')");
 		
 	}
 	
@@ -74,7 +67,6 @@ public class DatabaseHelper {
 //		for(int i = 1; i <= columnCount; i++){
 //			System.out.format("%20s", resultSetMetaData.getColumnName(i) + " | ");
 //		}
-		System.out.println("DB QUERY RESUL---------------------------");
 		
 		while (resultset.next()){
 			System.out.println("");

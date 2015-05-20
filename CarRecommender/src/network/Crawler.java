@@ -2,6 +2,8 @@ package network;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import model.Car;
 
@@ -44,7 +46,8 @@ public class Crawler {
 				car.setYear(Integer.parseInt(years_kms_colors.get( ( i * 3 ) ).text().replace(".", "")));
 				car.setKm(Integer.parseInt(years_kms_colors.get( ( i * 3 ) + 1 ).text().replace(".", "")));
 				car.setColor(years_kms_colors.get( ( i * 3 ) + 2 ).text());
-				car.setPrice(Integer.parseInt(prices.get(i).text().replace(".", "").replace(" TL", "")));
+				
+				car.setPrice(removeCurrencyFromPrice(prices.get(i).text()));
 				car.setCity(cities_towns.get(i).text().split(" ")[0].trim());
 				car.setTown(cities_towns.get(i).text().split(" ")[1].trim());
 				carList.add(car);
@@ -53,6 +56,13 @@ public class Crawler {
 		}
 		
 		return carList;
+	}
+	
+	
+	private int removeCurrencyFromPrice(String price){
+		
+		price = price.replace(".", "").replaceAll("[^\\d.]", "");
+		return Integer.valueOf(price);
 	}
 	
 }

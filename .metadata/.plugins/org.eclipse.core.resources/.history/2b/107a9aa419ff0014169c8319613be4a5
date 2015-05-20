@@ -64,10 +64,9 @@ public class DatabaseHelper {
 		ResultSetMetaData resultSetMetaData = resultset.getMetaData();
 		int columnCount = resultSetMetaData.getColumnCount();
 		
-//		for(int i = 1; i <= columnCount; i++){
-//			System.out.format("%20s", resultSetMetaData.getColumnName(i) + " | ");
-//		}
-		
+		for(int i = 1; i <= columnCount; i++){
+			System.out.format("%20s", resultSetMetaData.getColumnName(i) + " | ");
+		}
 		while (resultset.next()){
 			System.out.println("");
 			System.out.println(resultset.getString(1));

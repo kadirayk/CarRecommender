@@ -53,7 +53,6 @@ public class User {
 		prices.add(car.getPrice());
 		
 	}
-
 	
 	public User getUserInfo(){
 		return this;

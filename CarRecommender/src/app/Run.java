@@ -40,8 +40,11 @@ public class Run {
 			dbhelper.insertCarIntoDB(carList.get(i));
 		}		
 	
-		dbhelper.getCarFromDB();
+		ArrayList<Car> dbCarList = dbhelper.getCarListFromDB();
 			
+		for(Car c : dbCarList){
+			System.out.println(c.getTitle());
+		}
 		
 	}
 	

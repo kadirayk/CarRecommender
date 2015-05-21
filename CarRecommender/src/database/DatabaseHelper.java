@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.Car;
 
@@ -63,25 +64,28 @@ public class DatabaseHelper {
 		
 	}
 	
-	public void getCarFromDB() throws SQLException{
+	public ArrayList<Car> getCarListFromDB() throws SQLException{
 		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
 		Statement statement = connection.createStatement();
 		ResultSet resultset = statement.executeQuery("select * from cars");
 		
 		System.out.println("DB QUERY RESULT---------------------------");
 		
-		while (resultset.next()){
-			System.out.println("");
-			System.out.println(resultset.getString(1));
-			System.out.println(resultset.getString(2));
-			System.out.println(resultset.getString(3));
-			System.out.println(resultset.getString(4));
-			System.out.println(resultset.getInt(5));
-			System.out.println(resultset.getInt(6));
-			System.out.println(resultset.getString(7));
-			System.out.println(resultset.getInt(8));
-			System.out.println(resultset.getString(9));
-			System.out.println(resultset.getString(10));
+		ArrayList<Car> carList = new ArrayList<Car>();
+		
+		while (resultset.next()){			
+			Car mCar = new Car();
+			mCar.setTitle(resultset.getString(1));
+			mCar.setBrand(resultset.getString(2));
+			mCar.setModel(resultset.getString(3));
+			mCar.setModelDetail(resultset.getString(4));
+			mCar.setYear(resultset.getInt(5));
+			mCar.setKm(resultset.getInt(6));
+			mCar.setColor(resultset.getString(7));
+			mCar.setPrice(resultset.getInt(8));
+			mCar.setCity(resultset.getString(9));
+			mCar.setTown(resultset.getString(10));
+			carList.add(mCar);
 		}
 		
 		if(statement != null)
@@ -89,6 +93,7 @@ public class DatabaseHelper {
 		if(connection != null)
 			connection.close();
 		
+		return carList;
 	}
 	
 }

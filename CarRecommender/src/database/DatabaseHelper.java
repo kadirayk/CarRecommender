@@ -3,7 +3,6 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -68,13 +67,8 @@ public class DatabaseHelper {
 		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
 		Statement statement = connection.createStatement();
 		ResultSet resultset = statement.executeQuery("select * from cars");
-		ResultSetMetaData resultSetMetaData = resultset.getMetaData();
-		int columnCount = resultSetMetaData.getColumnCount();
 		
-//		for(int i = 1; i <= columnCount; i++){
-//			System.out.format("%20s", resultSetMetaData.getColumnName(i) + " | ");
-//		}
-		System.out.println("DB QUERY RESUL---------------------------");
+		System.out.println("DB QUERY RESULT---------------------------");
 		
 		while (resultset.next()){
 			System.out.println("");

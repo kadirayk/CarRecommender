@@ -2,8 +2,11 @@ package app;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import model.Car;
+import model.User;
 import network.Crawler;
 import database.DatabaseHelper;
 
@@ -45,6 +48,25 @@ public class Run {
 		for(Car c : dbCarList){
 			System.out.println(c.getTitle());
 		}
+		
+		
+		User user = new User();
+		
+		user.setUserName("dummy");
+		
+		for(Car c : dbCarList){
+			user.likes(c);
+		}
+		
+		SortedSet<String> brandSet = new TreeSet<String>(user.getBrands().keySet());
+		
+		for(String brand : brandSet){
+            System.out.print(brand + " : ");
+            for(int i = 0; i< user.getBrands().get(brand); i++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
 		
 	}
 	

@@ -1,0 +1,20 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class User {
+	
+	private HashMap<String,Integer> brands;
+	private HashMap<Integer,Integer> years;
+	private ArrayList<Integer> kms;
+	private HashMap<String, Integer> colors;
+	private ArrayList<Integer> prices;
+	private HashMap<String, Integer> cities;
+	
+	
+	
+	
+	
+	
+}

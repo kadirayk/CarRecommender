@@ -39,9 +39,9 @@ public class Run {
 		
 		dbhelper.createDB();
 		
-		for(int i = 0; i < carList.size(); i++){
-			dbhelper.insertCarIntoDB(carList.get(i));
-		}		
+//		for(int i = 0; i < carList.size(); i++){
+//			dbhelper.insertCarIntoDB(carList.get(i));
+//		}		
 	
 		ArrayList<Car> dbCarList = dbhelper.getCarListFromDB();
 			

@@ -129,23 +129,7 @@ public class DatabaseHelper {
 	}
 	
 	
-	public void insertUserBrandsIntoDB(String userName, String brandKey, int brandValue){
-		
-		try {
-			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into brands values "
-					+ "('"+ userName + "',"
-					+ " '" + brandKey + "',"
-					+ " '" + brandValue + "')");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				return;
-			}
-			e.printStackTrace();
-		}
-		
+	public void insertUserIntoDB(){
 		
 	}
 	

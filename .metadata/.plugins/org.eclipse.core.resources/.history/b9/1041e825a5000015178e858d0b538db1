@@ -6,8 +6,8 @@ import java.util.HashMap;
 public class User {
 	
 	private String userName;
-	private HashMap<String, Integer> brands;
-	private HashMap<Integer, Integer> years;
+	private HashMap<String,Integer> brands;
+	private HashMap<Integer,Integer> years;
 	private ArrayList<Integer> kms;
 	private HashMap<String, Integer> colors;
 	private ArrayList<Integer> prices;

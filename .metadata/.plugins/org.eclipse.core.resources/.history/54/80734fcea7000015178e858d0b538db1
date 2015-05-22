@@ -42,9 +42,8 @@ public class DatabaseHelper {
 		
 		try {
 			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table brands(username varchar(30),"
-					+ " brandkey varchar(30)"
-					+ " brandvalue INT");
+			connection.createStatement().execute("create table users(username varchar(30),"
+					+ " title varchar(300)");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -52,98 +51,6 @@ public class DatabaseHelper {
 				//table already exists
 				return;
 			}
-		}
-		
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table years(username varchar(30),"
-					+ " yearkey INT, "
-					+ " yearvalue INT");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table colors(username varchar(30),"
-					+ " colorkey varchar(30), "
-					+ " colorvalue INT");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table cities(username varchar(30),"
-					+ " citykey varchar(30), "
-					+ " cityvalue INT");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table kms(username varchar(30),"
-					+ " km_max INT, "
-					+ " km_min INT");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table prices(username varchar(30),"
-					+ " price_max INT, "
-					+ " price_min INT");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-	}
-	
-	
-	public void insertUserBrandsIntoDB(String userName, String brandKey, int brandValue){
-		
-		try {
-			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into brands values "
-					+ "('"+ userName + "',"
-					+ " '" + brandKey + "',"
-					+ " '" + brandValue + "')");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				return;
-			}
-			e.printStackTrace();
 		}
 		
 		

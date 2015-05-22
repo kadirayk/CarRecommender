@@ -145,27 +145,6 @@ public class DatabaseHelper {
 		
 	}
 
-	public void createPricesTable() throws ClassNotFoundException{
-		
-		Class.forName(DRIVER);
-		Connection connection;
-
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table prices(username varchar(30),"
-					+ " price_max INT, "
-					+ " price_min INT)");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-	}
-	
 	
 	public void createDB() throws ClassNotFoundException{
 
@@ -178,6 +157,23 @@ public class DatabaseHelper {
 		createKmsTable();
 		createPricesTable();
 		
+		/**
+		
+		
+		try {
+			connection = DriverManager.getConnection(JDBC_CREATE_URL);
+			connection.createStatement().execute("create table prices(username varchar(30),"
+					+ " price_max INT, "
+					+ " price_min INT");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			if(e.getErrorCode() == 30000){
+				//table already exists
+				return;
+			}
+		}
+		**/
 		
 	}
 	

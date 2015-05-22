@@ -80,92 +80,7 @@ public class DatabaseHelper {
 		}
 		
 	}
-	
-	
-	public void createColorsTable() throws ClassNotFoundException{
-		
-		Class.forName(DRIVER);
-		Connection connection;
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table colors(username varchar(30),"
-					+ " colorkey varchar(30), "
-					+ " colorvalue INT)");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-	}
-	
-	public void createCitiesTable() throws ClassNotFoundException{
-		
-		Class.forName(DRIVER);
-		Connection connection;
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table cities(username varchar(30),"
-					+ " citykey varchar(30), "
-					+ " cityvalue INT)");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-	}
-	
-	public void createKmsTable() throws ClassNotFoundException{
-		
-		Class.forName(DRIVER);
-		Connection connection;
-		
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table kms(username varchar(30),"
-					+ " km_max INT, "
-					+ " km_min INT)");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-	}
 
-	public void createPricesTable() throws ClassNotFoundException{
-		
-		Class.forName(DRIVER);
-		Connection connection;
-
-		try {
-			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table prices(username varchar(30),"
-					+ " price_max INT, "
-					+ " price_min INT)");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
-		}
-		
-	}
-	
 	
 	public void createDB() throws ClassNotFoundException{
 
@@ -178,6 +93,66 @@ public class DatabaseHelper {
 		createKmsTable();
 		createPricesTable();
 		
+		/**
+		
+		
+		try {
+			connection = DriverManager.getConnection(JDBC_CREATE_URL);
+			connection.createStatement().execute("create table colors(username varchar(30),"
+					+ " colorkey varchar(30), "
+					+ " colorvalue INT");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			if(e.getErrorCode() == 30000){
+				//table already exists
+				return;
+			}
+		}
+		
+		try {
+			connection = DriverManager.getConnection(JDBC_CREATE_URL);
+			connection.createStatement().execute("create table cities(username varchar(30),"
+					+ " citykey varchar(30), "
+					+ " cityvalue INT");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			if(e.getErrorCode() == 30000){
+				//table already exists
+				return;
+			}
+		}
+		
+		
+		try {
+			connection = DriverManager.getConnection(JDBC_CREATE_URL);
+			connection.createStatement().execute("create table kms(username varchar(30),"
+					+ " km_max INT, "
+					+ " km_min INT");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			if(e.getErrorCode() == 30000){
+				//table already exists
+				return;
+			}
+		}
+		
+		try {
+			connection = DriverManager.getConnection(JDBC_CREATE_URL);
+			connection.createStatement().execute("create table prices(username varchar(30),"
+					+ " price_max INT, "
+					+ " price_min INT");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			if(e.getErrorCode() == 30000){
+				//table already exists
+				return;
+			}
+		}
+		**/
 		
 	}
 	

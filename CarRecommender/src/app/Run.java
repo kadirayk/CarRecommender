@@ -39,9 +39,9 @@ public class Run {
 		
 		dbhelper.createDB();
 		
-		for(int i = 0; i < carList.size(); i++){
-			dbhelper.insertCarIntoDB(carList.get(i));
-		}		
+//		for(int i = 0; i < carList.size(); i++){
+//			dbhelper.insertCarIntoDB(carList.get(i));
+//		}		
 	
 		ArrayList<Car> dbCarList = dbhelper.getCarListFromDB();
 			
@@ -68,7 +68,19 @@ public class Run {
             System.out.println();
         }
 		
+		SortedSet<Integer> yearSet = new TreeSet<Integer>(user.getYears().keySet());
+		
+		for(Integer year : yearSet){
+			System.out.print(year + " : ");
+			for(int i = 0; i< user.getYears().get(year); i++){
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+		
 	}
+	
+	
 	
 
 }

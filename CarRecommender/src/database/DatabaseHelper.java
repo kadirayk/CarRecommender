@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.Car;
 
@@ -15,7 +16,8 @@ public class DatabaseHelper {
 	public static final String JDBC_CREATE_URL = "jdbc:derby:carrecommenderdb;create=true";
 	
 	
-	public void createDB() throws ClassNotFoundException{
+	public void createCarsTable() throws ClassNotFoundException{
+		
 		Class.forName(DRIVER);
 		Connection connection;
 		
@@ -39,20 +41,32 @@ public class DatabaseHelper {
 			}
 		}
 		
+	}
+	
+	public void createBrandsTable() throws ClassNotFoundException{
+		
+		Class.forName(DRIVER);
+		Connection connection;
 		
 		try {
 			connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("create table brands(username varchar(30),"
-					+ " brandkey varchar(30)"
-					+ " brandvalue INT");
+			connection.createStatement().execute("create table brands(username varchar(300),"
+					+ " brandkey varchar(30),"
+					+ " brandvalue INT)");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				//table already exists
-				return;
-			}
 		}
+		
+	}
+	
+	public void createDB() throws ClassNotFoundException{
+
+	
+		createCarsTable();
+		createBrandsTable();
+		
+		/**
 		
 		
 		try {
@@ -125,6 +139,7 @@ public class DatabaseHelper {
 				return;
 			}
 		}
+		**/
 		
 	}
 	
@@ -136,18 +151,43 @@ public class DatabaseHelper {
 			connection.createStatement().execute("insert into brands values "
 					+ "('"+ userName + "',"
 					+ " '" + brandKey + "',"
-					+ " '" + brandValue + "')");
+					+ "" + brandValue + ")");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			if(e.getErrorCode() == 30000){
+				e.printStackTrace();
 				return;
 			}
 			e.printStackTrace();
 		}
-		
-		
+	
 	}
+	
+
+	public HashMap<String, Integer> getBrandsMapFromDB(String userName) throws SQLException{
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery("select * from brands where username = '" + userName + "'");
+		
+		System.out.println("DB QUERY Brands RESULT---------------------------");
+		
+		
+		HashMap<String, Integer> brands = new HashMap<String, Integer>();
+		
+		while (resultset.next()){
+			brands.put(resultset.getString(2), resultset.getInt(3));
+		}
+		
+		if(statement != null)
+			statement.close();
+		if(connection != null)
+			connection.close();
+		
+		return brands;
+	}
+	
+	
 	
 	public void insertCarIntoDB(Car mCar){
 		try {

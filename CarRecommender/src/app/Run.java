@@ -2,6 +2,7 @@ package app;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -67,6 +68,25 @@ public class Run {
             }
             System.out.println();
         }
+		
+		
+		for(String brand : brandSet){
+			
+			dbhelper.insertUserBrandsIntoDB(user.getUserName(), brand, user.getBrands().get(brand));
+			
+		}
+		
+		HashMap<String, Integer> brandsfromDB = dbhelper.getBrandsMapFromDB(user.getUserName());
+		
+		SortedSet<String> brandsfromDBSet = new TreeSet<String>(brandsfromDB.keySet());
+		
+		System.out.println("---------------------brands from db ");
+		for(String b : brandsfromDBSet){
+			System.out.println(b + " : " + brandsfromDB.get(b));
+		}
+		
+		System.out.println("-------------------");
+		
 		
 		SortedSet<Integer> yearSet = new TreeSet<Integer>(user.getYears().keySet());
 		

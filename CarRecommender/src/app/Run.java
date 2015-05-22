@@ -98,6 +98,20 @@ public class Run {
 			System.out.println();
 		}
 		
+		
+		for(Integer y : yearSet){
+			dbhelper.insertUserYearsIntoDB(user.getUserName(), y, user.getYears().get(y));
+		}
+		
+		HashMap<Integer, Integer> yearsfromDB = dbhelper.getYearsMapFromDB(user.getUserName());
+		
+		SortedSet<Integer> yearsfromDBSet = new TreeSet<Integer>(yearsfromDB.keySet());
+		
+		System.out.println("---------------------brands from db ");
+		for(Integer y : yearsfromDBSet){
+			System.out.println(y + " : " + yearsfromDB.get(y));
+		}
+		
 	}
 	
 	

@@ -226,6 +226,49 @@ public class DatabaseHelper {
 	}
 	
 	
+	public void insertUserYearsIntoDB(String userName, int yearKey, int yearValue){
+		
+		try {
+			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+			connection.createStatement().execute("insert into years values "
+					+ "('"+ userName + "',"
+					+ "" + yearKey + ","
+					+ "" + yearValue + ")");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			if(e.getErrorCode() == 30000){
+				e.printStackTrace();
+				return;
+			}
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	public HashMap<Integer, Integer> getYearsMapFromDB(String userName) throws SQLException{
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		Statement statement = connection.createStatement();
+		ResultSet resultset = statement.executeQuery("select * from years where username = '" + userName + "'");
+		
+		System.out.println("DB QUERY years RESULT---------------------------");
+		
+		
+		HashMap<Integer, Integer> years = new HashMap<Integer, Integer>();
+		
+		while (resultset.next()){
+			years.put(resultset.getInt(2), resultset.getInt(3));
+		}
+		
+		if(statement != null)
+			statement.close();
+		if(connection != null)
+			connection.close();
+		
+		return years;
+	}
+	
 	
 	public void insertCarIntoDB(Car mCar){
 		try {

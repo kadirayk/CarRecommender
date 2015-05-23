@@ -17,11 +17,6 @@ public class Run {
 		
 		System.out.println("Car Recommender");
 		
-		/**
-		 * 
-		 * get cars from crawler
-		 * 
-		 * */
 		Crawler crawler = new Crawler();
 		
 		ArrayList<Car> carList = new ArrayList<Car>();
@@ -41,11 +36,6 @@ public class Run {
 			System.out.println(carList.get(i).getTown() + "\n");
 		}
 		
-		
-		/**
-		 * insert cars from crawler to DB
-		 */
-		
 		DatabaseHelper dbhelper = new DatabaseHelper();
 		
 		dbhelper.createDB();
@@ -61,11 +51,6 @@ public class Run {
 		}
 		
 		
-		/**
-		 * create user, add the cars that user like
-		 * 
-		 */
-		
 		User user = new User();
 		
 		user.setUserName("dummy");
@@ -73,11 +58,6 @@ public class Run {
 		for(Car c : dbCarList){
 			user.likes(c);
 		}
-		
-		/**
-		 * print brands histogram of the user
-		 * 
-		 */
 		
 		SortedSet<String> brandSet = new TreeSet<String>(user.getBrands().keySet());
 		
@@ -90,22 +70,11 @@ public class Run {
         }
 		
 		
-		/**
-		 * insert brands that user likes into DB
-		 * 
-		 */
-		
 		for(String brand : brandSet){
 			
 			dbhelper.insertBrandsIntoDB(user.getUserName(), brand, user.getBrands().get(brand));
 			
 		}
-		
-		/**
-		 * get brands of user from DB
-		 * and print brands
-		 * 
-		 */
 		
 		HashMap<String, Integer> brandsfromDB = dbhelper.getBrandsMapFromDB(user.getUserName());
 		
@@ -119,11 +88,6 @@ public class Run {
 		System.out.println("-------------------");
 		
 		
-		/**
-		 * get years that the user likes
-		 * 
-		 */
-		
 		SortedSet<Integer> yearSet = new TreeSet<Integer>(user.getYears().keySet());
 		
 		for(Integer year : yearSet){
@@ -135,19 +99,9 @@ public class Run {
 		}
 		
 		
-		/**
-		 * insert the years that user likes into DB
-		 * 
-		 */
-		
 		for(Integer y : yearSet){
 			dbhelper.insertYearsIntoDB(user.getUserName(), y, user.getYears().get(y));
 		}
-		
-		/**
-		 * get the user's years from DB
-		 * and print years
-		 */
 		
 		HashMap<Integer, Integer> yearsfromDB = dbhelper.getYearsMapFromDB(user.getUserName());
 		

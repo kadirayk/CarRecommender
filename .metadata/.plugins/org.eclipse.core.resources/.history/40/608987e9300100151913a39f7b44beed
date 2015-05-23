@@ -398,47 +398,6 @@ public class DatabaseHelper {
 		return kms;
 	}
 	
-	public void insertPricesIntoDB(String userName, int priceValue){
-		
-		try {
-			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into prices values "
-					+ "('"+ userName + "',"
-					+ "" + priceValue + ")");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				e.printStackTrace();
-				return;
-			}
-			e.printStackTrace();
-		}
-	
-	}
-	
-	public ArrayList<Integer> getPricesListFromDB(String userName) throws SQLException{
-		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-		Statement statement = connection.createStatement();
-		ResultSet resultset = statement.executeQuery("select * from prices where username = '" + userName + "'");
-		
-		System.out.println("DB QUERY years RESULT---------------------------");
-		
-		
-		ArrayList<Integer> prices = new ArrayList<Integer>();
-		
-		while (resultset.next()){
-			prices.add(resultset.getInt(2));
-		}
-		
-		if(statement != null)
-			statement.close();
-		if(connection != null)
-			connection.close();
-		
-		return prices;
-	}
-	
 	public void insertCarIntoDB(Car mCar){
 		try {
 			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);

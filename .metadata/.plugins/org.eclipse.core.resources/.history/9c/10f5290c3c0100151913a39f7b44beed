@@ -1,0 +1,29 @@
+package core;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+public class Recommender {
+
+	
+	public static ArrayList<String> getRecommendedBrands(int count, HashMap<String, Integer> brands){
+		
+
+		SortedSet<String> brandSet = new TreeSet<String>(brands.keySet());
+		
+		SortedSet<Integer> brandValues = new TreeSet<Integer>(brands.values());
+		
+		ArrayList<Integer> bl = new ArrayList<Integer>(brandValues);
+		
+		int i = 0;
+		for(String brand : brandSet){
+            System.out.print(brand + " : ");
+            System.out.println(bl.get(i));
+            i++;
+        }
+		
+		return null;
+	}
+}

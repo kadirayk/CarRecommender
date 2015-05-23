@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import core.Recommender;
 import model.Car;
 import model.User;
 import network.Crawler;
@@ -26,7 +27,7 @@ public class Run {
 		
 		ArrayList<Car> carList = new ArrayList<Car>();
 		
-		carList = crawler.getCarListFromUrl(3);
+		carList = crawler.getCarListFromUrl(5);
 		
 		for(int i = 0; i < carList.size(); i++){
 			System.out.println(carList.get(i).getTitle());
@@ -306,6 +307,14 @@ public class Run {
 			System.out.println(i);
 		}
 		
+		System.out.println("engine results");
+		
+		ArrayList<String> recommendedBrands = Recommender.getRecommendedBrands(6, brandsfromDB);
+		
+		System.out.println("true engine results");
+		for(String rb : recommendedBrands){
+			System.out.println(rb);
+		}
 		
 	}
 	

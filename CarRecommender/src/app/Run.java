@@ -199,6 +199,81 @@ public class Run {
 		}
 		
 		
+		/**
+		 * get cities that user likes
+		 * 
+		 */
+		
+		SortedSet<String> citySet = new TreeSet<String>(user.getCities().keySet());
+		
+		for(String city : citySet){
+			System.out.print(city + " : ");
+			for(int i = 0; i< user.getCities().get(city); i++){
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+		
+		/**
+		 * insert the cities that user likes into DB
+		 * 
+		 */
+		
+		for(String c : citySet){
+			dbhelper.insertCitiesIntoDB(user.getUserName(), c, user.getCities().get(c));
+		}
+		
+		
+		/**
+		 * get the user's cities from DB
+		 * and print cities
+		 */
+		
+		HashMap<String, Integer> citiesfromDB = dbhelper.getCitiesMapFromDB(user.getUserName());
+		
+		SortedSet<String> citiesfromDBSet = new TreeSet<String>(citiesfromDB.keySet());
+		
+		System.out.println("---------------------brands from db ");
+		for(String c : citiesfromDBSet){
+			System.out.println(c + " : " + citiesfromDB.get(c));
+		}
+		
+		
+		/**
+		 * get Kms that user likes
+		 * 
+		 */
+
+		ArrayList<Integer> kmList = user.getKms();
+		
+		for(Integer i : kmList){
+			System.out.println(i);
+		}
+		
+		/**
+		 * insert the kms that user likes into DB
+		 * 
+		 */
+		
+		for(Integer i : kmList){
+			dbhelper.insertKmsIntoDB(user.getUserName(), i);
+		}
+		
+		
+		/**
+		 * get the user's kms from DB
+		 * and print kms
+		 */
+		
+		ArrayList<Integer> kmsFromDB = dbhelper.getKmsListFromDB(user.getUserName());
+		
+		System.out.println("---------------------KMS from db ");
+		for(Integer i : kmsFromDB){
+			System.out.println(i);
+		}
+		
+		
+		
 	}
 	
 	

@@ -158,47 +158,6 @@ public class Run {
 			System.out.println(y + " : " + yearsfromDB.get(y));
 		}
 		
-		
-		/**
-		 * get colors that user likes
-		 * 
-		 */
-		
-		SortedSet<String> colorSet = new TreeSet<String>(user.getColors().keySet());
-		
-		for(String color : colorSet){
-			System.out.print(color + " : ");
-			for(int i = 0; i< user.getColors().get(color); i++){
-				System.out.print("*");
-			}
-			System.out.println();
-		}
-		
-		/**
-		 * insert the colors that user likes into DB
-		 * 
-		 */
-		
-		for(String c : colorSet){
-			dbhelper.insertColorsIntoDB(user.getUserName(), c, user.getColors().get(c));
-		}
-		
-		
-		/**
-		 * get the user's colors from DB
-		 * and print colors
-		 */
-		
-		HashMap<String, Integer> colorsfromDB = dbhelper.getColorsMapFromDB(user.getUserName());
-		
-		SortedSet<String> colorsfromDBSet = new TreeSet<String>(colorsfromDB.keySet());
-		
-		System.out.println("---------------------brands from db ");
-		for(String c : colorsfromDBSet){
-			System.out.println(c + " : " + colorsfromDB.get(c));
-		}
-		
-		
 	}
 	
 	

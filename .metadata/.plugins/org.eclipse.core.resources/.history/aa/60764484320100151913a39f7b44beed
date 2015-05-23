@@ -180,7 +180,7 @@ public class Run {
 		 */
 		
 		for(String c : colorSet){
-			dbhelper.insertColorsIntoDB(user.getUserName(), c, user.getColors().get(c));
+			dbhelper.insertColorsIntoDB(user.getUserName(), c, user.getYears().get(c));
 		}
 		
 		

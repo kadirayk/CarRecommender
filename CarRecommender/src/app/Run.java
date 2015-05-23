@@ -1,5 +1,6 @@
 package app;
 
+import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,9 +73,17 @@ public class Run {
 		
 		user.setUserName("dummy");
 		
+		System.out.println("cars that user likes");
+		
+		ArrayList<Car> likedCars = new ArrayList<Car>();
+		
 		for(Car c : dbCarList){
-			if(c.getTitle().startsWith("B"))
+			if(c.getTitle().startsWith("B")){
 				user.likes(c);
+				likedCars.add(c);
+				System.out.println(c.getTitle());
+			}
+				
 		}
 		
 		/**
@@ -327,6 +336,14 @@ public class Run {
 		ArrayList<Car> recommendedCarList = dbhelper.getRecommendedCarListFromDB(idealCarList);
 		
 		for(Car c : recommendedCarList){
+			System.out.println(c.getTitle() + " brand: " + c.getBrand() + " year: " + c.getYear() + " color: " + c.getColor() + " city: " + c.getCity());
+		}
+		
+		System.out.println("eliminated cars: ");
+		
+		ArrayList<Car> eliminatedCars = recommender.eliminateLikedCarsFromRecommendedCars(likedCars, recommendedCarList);
+		
+		for(Car c : eliminatedCars){
 			System.out.println(c.getTitle());
 		}
 		

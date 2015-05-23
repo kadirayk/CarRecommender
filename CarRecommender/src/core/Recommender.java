@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import model.Car;
 import model.IdealCar;
 
 public class Recommender {
@@ -193,5 +194,30 @@ public class Recommender {
 		
 		return idealCarList;
 	}
+	
+	
+	public ArrayList<Car> eliminateLikedCarsFromRecommendedCars(ArrayList<Car> likedCars, ArrayList<Car> recommendedCars){
+		
+		ArrayList<Car> carsToRemove = new ArrayList<Car>();
+		
+		for(Car likedCar : likedCars){
+			for(Car recommendedCar : recommendedCars){
+				if(likedCar.getTitle().equals(recommendedCar.getTitle())){
+					carsToRemove.add(recommendedCar);
+				}
+			}
+		}
+		
+		for(Car c : carsToRemove){
+			recommendedCars.remove(c);
+		}
+		
+		return recommendedCars;
+		
+	}
+	
+	
+	
+	
 	
 }

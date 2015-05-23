@@ -63,6 +63,22 @@ public class Recommender {
 		return recommendedColors;
 	}
 	
-
+	public static ArrayList<String> getRecommendedCities(int count, HashMap<String, Integer> cities){	
+		
+		SortedSet<Integer> cityValues = new TreeSet<Integer>(cities.values()).descendingSet();
+		SortedSet<String> cityKeys = new TreeSet<String>(cities.keySet());		
+		ArrayList<Integer> cityValueList = new ArrayList<Integer>(cityValues);
+		ArrayList<String> recommendedCities = new ArrayList<String>();
+		
+		for(int i = 0; i < count; i++){
+			for(String city : cityKeys){
+				if(cities.get(city) == cityValueList.get(i)){
+					recommendedCities.add(city);
+				}
+			}
+		}	
+		recommendedCities = new ArrayList<String>(recommendedCities.subList(0, count));
+		return recommendedCities;
+	}
 	
 }

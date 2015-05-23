@@ -312,7 +312,7 @@ public class Run {
 		ArrayList<String> recommendedBrands = Recommender.getRecommendedBrands(6, brandsfromDB);
 		ArrayList<Integer> recommendedYears = Recommender.getRecommendedYears(6, yearsfromDB);
 		ArrayList<String> recommendedColors = Recommender.getRecommendedBrands(6, colorsfromDB);
-		
+		ArrayList<String> recommendedCities = Recommender.getRecommendedBrands(6, citiesfromDB);
 		
 		System.out.println("brands: ");
 		for(String rb : recommendedBrands){
@@ -326,6 +326,11 @@ public class Run {
 		
 		System.out.println("colors: ");
 		for(String rc : recommendedColors){
+			System.out.println(rc);
+		}
+		
+		System.out.println("cities: ");
+		for(String rc : recommendedCities){
 			System.out.println(rc);
 		}
 	}

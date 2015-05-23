@@ -151,10 +151,7 @@ public class Recommender {
 						idealCar.setYear(getRecommendedYears(this.count, this.years).get(j));
 						idealCar.setColor(getRecommendedColors(this.count, this.colors).get(k));
 						idealCar.setCity(getRecommendedCities(this.count, this.cities).get(l));
-						idealCar.setKm_max(getRecommendedKmRange(this.kms).get(0));
-						idealCar.setKm_min(getRecommendedKmRange(this.kms).get(1));
-						idealCar.setPrice_max(getRecommendedPriceRange(this.prices).get(0));
-						idealCar.setPrice_min(getRecommendedPriceRange(this.prices).get(1));
+						
 						idealCarList.add(idealCar);
 						
 					}

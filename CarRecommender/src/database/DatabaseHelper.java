@@ -507,7 +507,11 @@ public class DatabaseHelper {
 			ResultSet resultset = statement.executeQuery("select * from cars where brand='" + idealCar.getBrand() + "'" +
 																					" and product_year=" + idealCar.getYear() +
 																					" and color='" + idealCar.getColor() + "'" +
-																					" and city='" + idealCar.getCity() + "'");
+																					" and city='" + idealCar.getCity() + "'" +
+																					" and car_km<=" + idealCar.getKm_max() +
+																					" and car_km>=" + idealCar.getKm_min() +
+																					" and price<=" + idealCar.getPrice_max() +
+																					" and price>=" + idealCar.getPrice_min());
 			
 			while (resultset.next()){			
 				Car mCar = new Car();

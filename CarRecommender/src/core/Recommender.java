@@ -45,4 +45,24 @@ public class Recommender {
 	}
 	
 	
+	public static ArrayList<String> getRecommendedColors(int count, HashMap<String, Integer> colors){	
+		
+		SortedSet<Integer> colorValues = new TreeSet<Integer>(colors.values()).descendingSet();
+		SortedSet<String> colorKeys = new TreeSet<String>(colors.keySet());		
+		ArrayList<Integer> colorValueList = new ArrayList<Integer>(colorValues);
+		ArrayList<String> recommendedColors = new ArrayList<String>();
+		
+		for(int i = 0; i < count; i++){
+			for(String color : colorKeys){
+				if(colors.get(color) == colorValueList.get(i)){
+					recommendedColors.add(color);
+				}
+			}
+		}	
+		recommendedColors = new ArrayList<String>(recommendedColors.subList(0, count));
+		return recommendedColors;
+	}
+	
+
+	
 }

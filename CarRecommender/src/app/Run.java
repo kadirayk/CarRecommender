@@ -310,12 +310,17 @@ public class Run {
 		System.out.println("engine results");
 		
 		ArrayList<String> recommendedBrands = Recommender.getRecommendedBrands(6, brandsfromDB);
+		ArrayList<Integer> recommendedYears = Recommender.getRecommendedYears(6, yearsfromDB);
 		
-		System.out.println("true engine results");
+		System.out.println("brands: ");
 		for(String rb : recommendedBrands){
 			System.out.println(rb);
 		}
 		
+		System.out.println("years: ");
+		for(Integer ry : recommendedYears){
+			System.out.println(ry);
+		}
 	}
 	
 	

@@ -1,17 +1,16 @@
 package app;
 
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import core.Recommender;
 import model.Car;
 import model.IdealCar;
 import model.User;
 import network.Crawler;
+import core.Recommender;
 import database.DatabaseHelper;
 
 public class Run {
@@ -318,6 +317,12 @@ public class Run {
 			System.out.println(i);
 		}
 		
+		/**
+		 * 
+		 * generate ideal car profile for the user
+		 * 
+		 */
+		
 		System.out.println("engine results");
 		
 		Recommender recommender = new Recommender(3, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
@@ -333,11 +338,21 @@ public class Run {
 					+ " city: " + idealCar.getCity());
 		}
 		
+		/**
+		 * get recommended cars according to ideal cars of the user
+		 * 
+		 */
+		
 		ArrayList<Car> recommendedCarList = dbhelper.getRecommendedCarListFromDB(idealCarList);
 		
 		for(Car c : recommendedCarList){
 			System.out.println(c.getTitle() + " brand: " + c.getBrand() + " year: " + c.getYear() + " color: " + c.getColor() + " city: " + c.getCity());
 		}
+		
+		/**
+		 * eliminate liked cars in order not to show to the user if she already liked it
+		 * 
+		 */
 		
 		System.out.println("eliminated cars: ");
 		

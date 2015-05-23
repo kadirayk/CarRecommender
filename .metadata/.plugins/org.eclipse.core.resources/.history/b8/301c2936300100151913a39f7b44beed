@@ -152,7 +152,8 @@ public class DatabaseHelper {
 		try {
 			connection = DriverManager.getConnection(JDBC_CREATE_URL);
 			connection.createStatement().execute("create table prices(username varchar(30),"
-					+ " priceValue INT)");
+					+ " price_max INT, "
+					+ " price_min INT)");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

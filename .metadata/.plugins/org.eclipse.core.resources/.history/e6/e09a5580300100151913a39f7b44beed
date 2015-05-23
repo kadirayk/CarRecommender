@@ -356,48 +356,6 @@ public class DatabaseHelper {
 	}
 	
 	
-	public void insertKmsIntoDB(String userName, int kmValue){
-		
-		try {
-			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into kms values "
-					+ "('"+ userName + "',"
-					+ "" + kmValue + ")");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				e.printStackTrace();
-				return;
-			}
-			e.printStackTrace();
-		}
-	
-	}
-	
-	
-	public ArrayList<Integer> getKmsListFromDB(String userName) throws SQLException{
-		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-		Statement statement = connection.createStatement();
-		ResultSet resultset = statement.executeQuery("select * from kms where username = '" + userName + "'");
-		
-		System.out.println("DB QUERY years RESULT---------------------------");
-		
-		
-		ArrayList<Integer> kms = new ArrayList<Integer>();
-		
-		while (resultset.next()){
-			kms.add(resultset.getInt(2));
-		}
-		
-		if(statement != null)
-			statement.close();
-		if(connection != null)
-			connection.close();
-		
-		return kms;
-	}
-	
 	public void insertCarIntoDB(Car mCar){
 		try {
 			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);

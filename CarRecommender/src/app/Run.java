@@ -313,6 +313,8 @@ public class Run {
 		ArrayList<Integer> recommendedYears = Recommender.getRecommendedYears(6, yearsfromDB);
 		ArrayList<String> recommendedColors = Recommender.getRecommendedBrands(6, colorsfromDB);
 		ArrayList<String> recommendedCities = Recommender.getRecommendedBrands(6, citiesfromDB);
+		ArrayList<Integer> recommendedKmRange = Recommender.getRecommendedKmRange(kmsFromDB);
+		ArrayList<Integer> recommendedPriceRange = Recommender.getRecommendedKmRange(pricesFromDB);
 		
 		System.out.println("brands: ");
 		for(String rb : recommendedBrands){
@@ -332,6 +334,16 @@ public class Run {
 		System.out.println("cities: ");
 		for(String rc : recommendedCities){
 			System.out.println(rc);
+		}
+		
+		System.out.println("kms: ");
+		for(Integer km : recommendedKmRange){
+			System.out.println(km);
+		}
+		
+		System.out.println("prices: ");
+		for(Integer price : recommendedPriceRange){
+			System.out.println(price);
 		}
 	}
 	

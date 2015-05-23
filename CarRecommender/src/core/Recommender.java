@@ -91,4 +91,13 @@ public class Recommender {
 		return kmRange;
 	}
 	
+	public static ArrayList<Integer> getRecommendedPriceRange(ArrayList<Integer> prices){
+		
+		ArrayList<Integer> priceRange = new ArrayList<Integer>();
+		priceRange.add(Collections.max(prices));
+		priceRange.add(Collections.min(prices));
+		
+		return priceRange;
+	}
+	
 }

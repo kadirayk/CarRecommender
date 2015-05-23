@@ -46,7 +46,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	DatabaseHelper dbhelper;
 	ArrayList<Car> dbCarList;
 	User user;
-	ArrayList<Car> likedCars;
+	
 	
 	public static void main(String[] Args){
 
@@ -176,7 +176,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(5,5,5,5));
 		
-		likedCars = new ArrayList<Car>();
+		
 		
 		carTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
 		    @Override
@@ -186,18 +186,36 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		        {    
 		           TableViewSelectionModel selectionModel = carTableView.getSelectionModel();
 		           ObservableList selectedCells = selectionModel.getSelectedCells();
-		      		           
+		           
+		           Car likedCar = new Car();
+		           
 		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-		           Object titleValue = tablePosition.getRow();	           
+		           Object titleValue = tablePosition.getTableColumn().getCellData(newValue);
+//		           
 		           
-		           Car likedCar = carTableView.getItems().get( (Integer) titleValue);
-		           likedCars.add(likedCar);
-		           user.likes(likedCar);
+//		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+//		           Object titleValue = tablePosition.getTableColumn().getCellData(newValue);
+//		           
+//		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+//		           Object titleValue = tablePosition.getTableColumn().getCellData(newValue);
+//		           
 		           
-		           System.out.println("Selected Value" + likedCar.getTitle() );
+		           System.out.println("Selected Value" + titleValue );
 		         }
 		         }
 		     });
+		
+		
+//		
+//		
+//		for(Car c : dbCarList){
+//			if(c.getTitle().startsWith("B")){
+//				user.likes(c);
+//				likedCars.add(c);
+//				System.out.println(c.getTitle());
+//			}
+//				
+//		}
 		
 		layout.getChildren().add(carTableView);
 		

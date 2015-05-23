@@ -188,16 +188,34 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		           ObservableList selectedCells = selectionModel.getSelectedCells();
 		      		           
 		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-		           Object titleValue = tablePosition.getRow();	           
+		           Object titleValue = tablePosition.getRow();
+//		           
 		           
 		           Car likedCar = carTableView.getItems().get( (Integer) titleValue);
 		           likedCars.add(likedCar);
-		           user.likes(likedCar);
+//		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+//		           Object titleValue = tablePosition.getTableColumn().getCellData(newValue);
+//		           
+//		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+//		           Object titleValue = tablePosition.getTableColumn().getCellData(newValue);
+//		           
 		           
 		           System.out.println("Selected Value" + likedCar.getTitle() );
 		         }
 		         }
 		     });
+		
+		
+//		
+//		
+//		for(Car c : dbCarList){
+//			if(c.getTitle().startsWith("B")){
+//				user.likes(c);
+//				likedCars.add(c);
+//				System.out.println(c.getTitle());
+//			}
+//				
+//		}
 		
 		layout.getChildren().add(carTableView);
 		

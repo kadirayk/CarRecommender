@@ -46,7 +46,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	DatabaseHelper dbhelper;
 	ArrayList<Car> dbCarList;
 	User user;
-	ArrayList<Car> likedCars;
+	
 	
 	public static void main(String[] Args){
 
@@ -176,8 +176,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(5,5,5,5));
 		
-		likedCars = new ArrayList<Car>();
-		
 		carTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
 		    @Override
 		    public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
@@ -186,15 +184,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		        {    
 		           TableViewSelectionModel selectionModel = carTableView.getSelectionModel();
 		           ObservableList selectedCells = selectionModel.getSelectedCells();
-		      		           
 		           TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-		           Object titleValue = tablePosition.getRow();	           
-		           
-		           Car likedCar = carTableView.getItems().get( (Integer) titleValue);
-		           likedCars.add(likedCar);
-		           user.likes(likedCar);
-		           
-		           System.out.println("Selected Value" + likedCar.getTitle() );
+		           Object val = tablePosition.getTableColumn().getCellData(newValue);
+		           System.out.println("Selected Value" + val);
 		         }
 		         }
 		     });

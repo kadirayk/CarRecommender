@@ -191,8 +191,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		           Object titleValue = tablePosition.getRow();	           
 		           
 		           Car likedCar = carTableView.getItems().get( (Integer) titleValue);
-		           likedCars.add(likedCar);
-		           user.likes(likedCar);
+		           likedCars.add(likedCar);	           
 		           
 		           System.out.println("Selected Value" + likedCar.getTitle() );
 		         }

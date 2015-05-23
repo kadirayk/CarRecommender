@@ -19,6 +19,25 @@ public class Recommender {
 	private ArrayList<Integer> kms;
 	
 	
+	public Recommender(int count, 
+			HashMap<String, Integer> brands, 
+			HashMap<Integer, Integer> years, 
+			HashMap<String, Integer> colors, 
+			HashMap<String, Integer> cities, 
+			ArrayList<Integer> prices, 
+			ArrayList<Integer> kms){
+		
+		this.count = count;
+		this.brands = brands;
+		this.years = years;
+		this.colors = colors;
+		this.cities = cities;
+		this.prices = prices;
+		this.kms = kms;
+			
+	}
+	
+	
 	public static ArrayList<String> getRecommendedBrands(int count, HashMap<String, Integer> brands){	
 		
 		SortedSet<Integer> brandValues = new TreeSet<Integer>(brands.values()).descendingSet();
@@ -111,20 +130,40 @@ public class Recommender {
 	}
 	
 	
-	public IdealCar getIdealCar(){
+	public ArrayList<IdealCar> getIdealCarList(){
 		
-		IdealCar idealCar = new IdealCar();
-		
-		getRecommendedBrands(this.count, this.brands);
-		getRecommendedYears(this.count, this.years);
-		getRecommendedBrands(this.count, this.colors);
-		getRecommendedBrands(this.count, this.cities);
+		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
+
 		getRecommendedKmRange(this.kms);
 		getRecommendedKmRange(this.prices);
 		
+		for(int i = 0; i <this.count; i++){
+			
+			for(int j = 0; j < this.count; j++){
+				
+				for(int k = 0; k < this.count; k++){
+					
+					for(int l = 0; l < this.count; l++){
+						
+						IdealCar idealCar = new IdealCar();
+						
+						idealCar.setBrand(getRecommendedBrands(this.count, this.brands).get(i));
+						idealCar.setYear(getRecommendedYears(this.count, this.years).get(j));
+						idealCar.setColor(getRecommendedColors(this.count, this.colors).get(k));
+						idealCar.setCity(getRecommendedCities(this.count, this.cities).get(l));
+						
+						idealCarList.add(idealCar);
+						
+					}
+					
+				}
+				
+			}
+			
+		}
 		
 		
-		return idealCar;
+		return idealCarList;
 	}
 	
 }

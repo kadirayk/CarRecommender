@@ -274,7 +274,7 @@ public class DatabaseHelper {
 		
 		try {
 			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into colors values "
+			connection.createStatement().execute("insert into years values "
 					+ "('"+ userName + "',"
 					+ "'" + colorKey + "',"
 					+ "" + colorValue + ")");
@@ -290,28 +290,6 @@ public class DatabaseHelper {
 	
 	}
 	
-	
-	public HashMap<String, Integer> getColorsMapFromDB(String userName) throws SQLException{
-		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-		Statement statement = connection.createStatement();
-		ResultSet resultset = statement.executeQuery("select * from colors where username = '" + userName + "'");
-		
-		System.out.println("DB QUERY years RESULT---------------------------");
-		
-		
-		HashMap<String, Integer> colors = new HashMap<String, Integer>();
-		
-		while (resultset.next()){
-			colors.put(resultset.getString(2), resultset.getInt(3));
-		}
-		
-		if(statement != null)
-			statement.close();
-		if(connection != null)
-			connection.close();
-		
-		return colors;
-	}
 	
 	public void insertCarIntoDB(Car mCar){
 		try {

@@ -72,7 +72,7 @@ public class Run {
 		
 		for(String brand : brandSet){
 			
-			dbhelper.insertBrandsIntoDB(user.getUserName(), brand, user.getBrands().get(brand));
+			dbhelper.insertUserBrandsIntoDB(user.getUserName(), brand, user.getBrands().get(brand));
 			
 		}
 		
@@ -100,7 +100,7 @@ public class Run {
 		
 		
 		for(Integer y : yearSet){
-			dbhelper.insertYearsIntoDB(user.getUserName(), y, user.getYears().get(y));
+			dbhelper.insertUserYearsIntoDB(user.getUserName(), y, user.getYears().get(y));
 		}
 		
 		HashMap<Integer, Integer> yearsfromDB = dbhelper.getYearsMapFromDB(user.getUserName());

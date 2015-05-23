@@ -132,7 +132,8 @@ public class DatabaseHelper {
 		try {
 			connection = DriverManager.getConnection(JDBC_CREATE_URL);
 			connection.createStatement().execute("create table kms(username varchar(30),"
-					+ " kmValue INT)");
+					+ " km_max INT, "
+					+ " km_min INT)");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -311,51 +312,6 @@ public class DatabaseHelper {
 		
 		return colors;
 	}
-	
-	
-	public void insertCitiesIntoDB(String userName, String cityKey, int cityValue){
-		
-		try {
-			Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-			connection.createStatement().execute("insert into cities values "
-					+ "('"+ userName + "',"
-					+ "'" + cityKey + "',"
-					+ "" + cityValue + ")");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			if(e.getErrorCode() == 30000){
-				e.printStackTrace();
-				return;
-			}
-			e.printStackTrace();
-		}
-	
-	}
-	
-
-	public HashMap<String, Integer> getCitiesMapFromDB(String userName) throws SQLException{
-		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
-		Statement statement = connection.createStatement();
-		ResultSet resultset = statement.executeQuery("select * from cities where username = '" + userName + "'");
-		
-		System.out.println("DB QUERY years RESULT---------------------------");
-		
-		
-		HashMap<String, Integer> cities = new HashMap<String, Integer>();
-		
-		while (resultset.next()){
-			cities.put(resultset.getString(2), resultset.getInt(3));
-		}
-		
-		if(statement != null)
-			statement.close();
-		if(connection != null)
-			connection.close();
-		
-		return cities;
-	}
-	
 	
 	public void insertCarIntoDB(Car mCar){
 		try {

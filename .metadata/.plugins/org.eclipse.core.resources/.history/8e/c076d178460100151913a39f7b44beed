@@ -1,7 +1,6 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -80,15 +79,6 @@ public class Recommender {
 		}	
 		recommendedCities = new ArrayList<String>(recommendedCities.subList(0, count));
 		return recommendedCities;
-	}
-	
-	public static ArrayList<Integer> getRecommendedKmRange(ArrayList<Integer> kms){
-		
-		ArrayList<Integer> kmRange = new ArrayList<Integer>();
-		kmRange.add(Collections.max(kms));
-		kmRange.add(Collections.min(kms));
-		
-		return kmRange;
 	}
 	
 }

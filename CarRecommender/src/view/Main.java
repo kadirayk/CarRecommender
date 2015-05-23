@@ -1,4 +1,11 @@
 package view;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import database.DatabaseHelper;
+import model.Car;
+import model.User;
+import network.Crawler;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,18 +14,27 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 public class Main extends Application implements EventHandler<ActionEvent>{
 
+	ListView<String> carListview;
 	Button button;
 	TextField userNameTF;
 	Scene userNameScene;
 	Scene carListScene;
 	Stage window;
+	Crawler crawler;
+	ArrayList<Car> carList;
+	DatabaseHelper dbhelper;
+	ArrayList<Car> dbCarList;
+	User user;
 	
 	
 	public static void main(String[] Args){
@@ -34,11 +50,38 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		window.setTitle("Car Recommender");		
 		
 	    window.setScene(setUserNameScene());
-	    window.show();
 	    
+	    
+	    
+	    /**
+	     * get cars from crawler
+	     */
+	    
+	    crawler = new Crawler();
+		
+		carList = new ArrayList<Car>();
+		
+		carList = crawler.getCarListFromUrl(5);
+		
+		/**
+		 * insert cars from crawler to DB
+		 */
+		
+		dbhelper = new DatabaseHelper();
+		dbhelper.createDB();
+
+		for(int i = 0; i < carList.size(); i++){
+			dbhelper.insertCarIntoDB(carList.get(i));
+		}		
+	
+		dbCarList = dbhelper.getCarListFromDB();
+		
+		user = new User();
+	    
+		window.show();
 		
 	}
-
+	
 	
 	private Scene setUserNameScene(){
 		
@@ -72,7 +115,23 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	
 	private Scene setCarListScene(){
 		
-		carListScene = new Scene(new Group(), 600, 480);
+		
+		
+		carListview = new ListView<String>();
+		
+		VBox layout = new VBox(10);
+		layout.setPadding(new Insets(20,20,20,20));
+		
+		
+		for(Car c : carList){
+			carListview.getItems().add(c.getTitle());
+		}
+		
+		carListview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		layout.getChildren().add(carListview);
+		
+		carListScene = new Scene(layout, 600, 480);
 		
 		return carListScene;
 		
@@ -82,7 +141,7 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 
 		if(event.getSource()==button){
-			System.out.println(userNameTF.getText());
+			user.setUserName(userNameTF.getText());
 			window.setScene(setCarListScene());
 			
 		}

@@ -73,7 +73,8 @@ public class Run {
 		user.setUserName("dummy");
 		
 		for(Car c : dbCarList){
-			user.likes(c);
+			if(c.getTitle().startsWith("B"))
+				user.likes(c);
 		}
 		
 		/**
@@ -309,43 +310,6 @@ public class Run {
 		}
 		
 		System.out.println("engine results");
-//		
-//		ArrayList<String> recommendedBrands = Recommender.getRecommendedBrands(6, brandsfromDB);
-//		ArrayList<Integer> recommendedYears = Recommender.getRecommendedYears(6, yearsfromDB);
-//		ArrayList<String> recommendedColors = Recommender.getRecommendedColors(6, colorsfromDB);
-//		ArrayList<String> recommendedCities = Recommender.getRecommendedCities(6, citiesfromDB);
-//		ArrayList<Integer> recommendedKmRange = Recommender.getRecommendedKmRange(kmsFromDB);
-//		ArrayList<Integer> recommendedPriceRange = Recommender.getRecommendedPriceRange(pricesFromDB);
-//		
-//		System.out.println("brands: ");
-//		for(String rb : recommendedBrands){
-//			System.out.println(rb);
-//		}
-//		
-//		System.out.println("years: ");
-//		for(Integer ry : recommendedYears){
-//			System.out.println(ry);
-//		}
-//		
-//		System.out.println("colors: ");
-//		for(String rc : recommendedColors){
-//			System.out.println(rc);
-//		}
-//		
-//		System.out.println("cities: ");
-//		for(String rc : recommendedCities){
-//			System.out.println(rc);
-//		}
-//		
-//		System.out.println("kms: ");
-//		for(Integer km : recommendedKmRange){
-//			System.out.println(km);
-//		}
-//		
-//		System.out.println("prices: ");
-//		for(Integer price : recommendedPriceRange){
-//			System.out.println(price);
-//		}
 		
 		Recommender recommender = new Recommender(3, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
 		
@@ -360,6 +324,11 @@ public class Run {
 					+ " city: " + idealCar.getCity());
 		}
 		
+		ArrayList<Car> recommendedCarList = dbhelper.getRecommendedCarListFromDB(idealCarList);
+		
+		for(Car c : recommendedCarList){
+			System.out.println(c.getTitle());
+		}
 		
 	}
 	

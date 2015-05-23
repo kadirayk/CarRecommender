@@ -45,6 +45,8 @@ public class Recommender {
 		ArrayList<Integer> brandValueList = new ArrayList<Integer>(brandValues);
 		ArrayList<String> recommendedBrands = new ArrayList<String>();
 		
+		count = count < brandValueList.size() ? count : brandValueList.size();
+		
 		for(int i = 0; i < count; i++){
 			for(String brand : brandKeys){
 				if(brands.get(brand) == brandValueList.get(i)){
@@ -62,6 +64,8 @@ public class Recommender {
 		SortedSet<Integer> yearKeys = new TreeSet<Integer>(years.keySet());		
 		ArrayList<Integer> yearValueList = new ArrayList<Integer>(yearValues);
 		ArrayList<Integer> recommendedYears = new ArrayList<Integer>();
+		
+		count = count < yearValueList.size() ? count : yearValueList.size();
 		
 		for(int i = 0; i < count; i++){
 			for(Integer year : yearKeys){
@@ -82,6 +86,8 @@ public class Recommender {
 		ArrayList<Integer> colorValueList = new ArrayList<Integer>(colorValues);
 		ArrayList<String> recommendedColors = new ArrayList<String>();
 		
+		count = count < colorValueList.size() ? count : colorValueList.size();
+		
 		for(int i = 0; i < count; i++){
 			for(String color : colorKeys){
 				if(colors.get(color) == colorValueList.get(i)){
@@ -99,6 +105,8 @@ public class Recommender {
 		SortedSet<String> cityKeys = new TreeSet<String>(cities.keySet());		
 		ArrayList<Integer> cityValueList = new ArrayList<Integer>(cityValues);
 		ArrayList<String> recommendedCities = new ArrayList<String>();
+		
+		count = count < cityValueList.size() ? count : cityValueList.size();
 		
 		for(int i = 0; i < count; i++){
 			for(String city : cityKeys){
@@ -133,17 +141,34 @@ public class Recommender {
 	public ArrayList<IdealCar> getIdealCarList(){
 		
 		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
-
+		
+		SortedSet<Integer> brandValues = new TreeSet<Integer>(brands.values()).descendingSet();
+		ArrayList<Integer> brandValueList = new ArrayList<Integer>(brandValues);
+		
+		SortedSet<Integer> yearValues = new TreeSet<Integer>(years.values()).descendingSet();	
+		ArrayList<Integer> yearValueList = new ArrayList<Integer>(yearValues);
+		
+		SortedSet<Integer> colorValues = new TreeSet<Integer>(colors.values()).descendingSet();	
+		ArrayList<Integer> colorValueList = new ArrayList<Integer>(colorValues);
+		
+		SortedSet<Integer> cityValues = new TreeSet<Integer>(cities.values()).descendingSet();	
+		ArrayList<Integer> cityValueList = new ArrayList<Integer>(cityValues);
+		
+		int countBrand = this.count < brandValueList.size() ? this.count : brandValueList.size();
+		int countYear = this.count < yearValueList.size() ? this.count : yearValueList.size();
+		int countColor = this.count < colorValueList.size() ? this.count : colorValueList.size();
+		int countCity = this.count < cityValueList.size() ? this.count : cityValueList.size();
+		
 		getRecommendedKmRange(this.kms);
 		getRecommendedKmRange(this.prices);
 		
-		for(int i = 0; i <this.count; i++){
+		for(int i = 0; i <countBrand; i++){
 			
-			for(int j = 0; j < this.count; j++){
+			for(int j = 0; j < countYear; j++){
 				
-				for(int k = 0; k < this.count; k++){
+				for(int k = 0; k < countColor; k++){
 					
-					for(int l = 0; l < this.count; l++){
+					for(int l = 0; l < countCity; l++){
 						
 						IdealCar idealCar = new IdealCar();
 						

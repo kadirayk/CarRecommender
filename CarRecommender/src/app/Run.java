@@ -311,10 +311,10 @@ public class Run {
 		
 		ArrayList<String> recommendedBrands = Recommender.getRecommendedBrands(6, brandsfromDB);
 		ArrayList<Integer> recommendedYears = Recommender.getRecommendedYears(6, yearsfromDB);
-		ArrayList<String> recommendedColors = Recommender.getRecommendedBrands(6, colorsfromDB);
-		ArrayList<String> recommendedCities = Recommender.getRecommendedBrands(6, citiesfromDB);
+		ArrayList<String> recommendedColors = Recommender.getRecommendedColors(6, colorsfromDB);
+		ArrayList<String> recommendedCities = Recommender.getRecommendedCities(6, citiesfromDB);
 		ArrayList<Integer> recommendedKmRange = Recommender.getRecommendedKmRange(kmsFromDB);
-		ArrayList<Integer> recommendedPriceRange = Recommender.getRecommendedKmRange(pricesFromDB);
+		ArrayList<Integer> recommendedPriceRange = Recommender.getRecommendedPriceRange(pricesFromDB);
 		
 		System.out.println("brands: ");
 		for(String rb : recommendedBrands){

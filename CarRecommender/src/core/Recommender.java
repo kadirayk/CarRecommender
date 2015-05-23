@@ -10,6 +10,14 @@ import model.IdealCar;
 
 public class Recommender {
 
+	private int count;
+	private HashMap<String, Integer> brands;
+	private HashMap<Integer, Integer> years;
+	private HashMap<String, Integer> colors;
+	private HashMap<String, Integer> cities;
+	private ArrayList<Integer> prices;
+	private ArrayList<Integer> kms;
+	
 	
 	public static ArrayList<String> getRecommendedBrands(int count, HashMap<String, Integer> brands){	
 		
@@ -103,8 +111,17 @@ public class Recommender {
 	}
 	
 	
-	public static IdealCar getIdealCar(){
+	public IdealCar getIdealCar(){
+		
 		IdealCar idealCar = new IdealCar();
+		
+		getRecommendedBrands(this.count, this.brands);
+		getRecommendedYears(this.count, this.years);
+		getRecommendedBrands(this.count, this.colors);
+		getRecommendedBrands(this.count, this.cities);
+		getRecommendedKmRange(this.kms);
+		getRecommendedKmRange(this.prices);
+		
 		
 		
 		return idealCar;

@@ -273,6 +273,39 @@ public class Run {
 		}
 		
 		
+		/**
+		 * get prices that user likes
+		 * 
+		 */
+
+		ArrayList<Integer> priceList = user.getPrices();
+		
+		for(Integer i : priceList){
+			System.out.println(i);
+		}
+		
+		/**
+		 * insert the prices that user likes into DB
+		 * 
+		 */
+		
+		for(Integer i : priceList){
+			dbhelper.insertPricesIntoDB(user.getUserName(), i);
+		}
+		
+		
+		/**
+		 * get the user's prices from DB
+		 * and print prices
+		 */
+		
+		ArrayList<Integer> pricesFromDB = dbhelper.getPricesListFromDB(user.getUserName());
+		
+		System.out.println("---------------------prices from db ");
+		for(Integer i : pricesFromDB){
+			System.out.println(i);
+		}
+		
 		
 	}
 	

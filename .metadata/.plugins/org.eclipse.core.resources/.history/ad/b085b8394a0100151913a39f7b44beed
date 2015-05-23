@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import model.IdealCar;
-
 public class Recommender {
 
 	
@@ -100,14 +98,6 @@ public class Recommender {
 		priceRange.add(Collections.min(prices));
 		
 		return priceRange;
-	}
-	
-	
-	public static IdealCar getIdealCar(){
-		IdealCar idealCar = new IdealCar();
-		
-		
-		return idealCar;
 	}
 	
 }

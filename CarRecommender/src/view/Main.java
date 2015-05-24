@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import core.Recommender;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,6 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Car;
+import model.IdealCar;
 import model.User;
 import network.Crawler;
 import database.DatabaseHelper;
@@ -41,6 +43,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	ListView<String> carListview;
 	TableView<Car> carTableView;
 	TableView<Car> likedCarsTableView;
+	TableView<Car> recommendedCarsTableView;
 	Button enterButton;
 	Button showRecommendationsButton;
 	TextField userNameTF;
@@ -55,7 +58,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	DatabaseHelper dbhelper;
 	ArrayList<Car> dbCarList;
 	User user;
-	static ArrayList<Car> likedCars;
+	ArrayList<Car> likedCars;
+	ArrayList<Car> recommendedCars;
 	
 	public static void main(String[] Args){
 
@@ -120,7 +124,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private Scene setRecommendationsScene(){
+	private Scene setRecommendationsScene() throws Exception{
 		
 		TableColumn<Car, String> titleColumn = new TableColumn<Car, String>("Title");
 		titleColumn.setMinWidth(200);
@@ -168,11 +172,59 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				modelDetailColumn, yearColumn, kmColumn, colorColumn, priceColumn, cityColumn, townColumn);
 		
 		
+		
+		TableColumn<Car, String> rtitleColumn = new TableColumn<Car, String>("Title");
+		rtitleColumn.setMinWidth(200);
+		rtitleColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Title"));
+		
+		TableColumn<Car, String> rbrandColumn = new TableColumn<Car, String>("Brand");
+		rbrandColumn.setMinWidth(100);
+		rbrandColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Brand"));
+		
+		TableColumn<Car, String> rmodelColumn = new TableColumn<Car, String>("Model");
+		rmodelColumn.setMinWidth(100);
+		rmodelColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Model"));
+		
+		TableColumn<Car, String> rmodelDetailColumn = new TableColumn<Car, String>("Model Detail");
+		rmodelDetailColumn.setMinWidth(200);
+		rmodelDetailColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("ModelDetail"));
+		
+		TableColumn<Car, Integer> ryearColumn = new TableColumn<Car, Integer>("Year");
+		ryearColumn.setMinWidth(100);
+		ryearColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("Year"));
+		
+		TableColumn<Car, Integer> rkmColumn = new TableColumn<Car, Integer>("Km");
+		rkmColumn.setMinWidth(100);
+		rkmColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("Km"));
+		
+		TableColumn<Car, String> rcolorColumn = new TableColumn<Car, String>("Color");
+		rcolorColumn.setMinWidth(100);
+		rcolorColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Color"));
+		
+		TableColumn<Car, Integer> rpriceColumn = new TableColumn<Car, Integer>("Price");
+		rpriceColumn.setMinWidth(100);
+		rpriceColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("Price"));
+		
+		TableColumn<Car, String> rcityColumn = new TableColumn<Car, String>("City");
+		rcityColumn.setMinWidth(100);
+		rcityColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("City"));
+		
+		TableColumn<Car, String> rtownColumn = new TableColumn<Car, String>("Town");
+		rtownColumn.setMinWidth(100);
+		rtownColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Town"));
+		
+		recommendedCarsTableView = new TableView<Car>();
+		recommendedCarsTableView.setItems(getRecommendedCars());
+		recommendedCarsTableView.getColumns().addAll(rtitleColumn, rbrandColumn, rmodelColumn, 
+				rmodelDetailColumn, ryearColumn, rkmColumn, rcolorColumn, rpriceColumn, rcityColumn, rtownColumn);
+		
+		
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(5,5,5,5));
 		
 		
 		layout.getChildren().add(likedCarsTableView);
+		layout.getChildren().add(recommendedCarsTableView);
 		
 		recommendationsScene = new Scene(layout, 600, 480);
 		
@@ -302,11 +354,17 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		}else if(event.getSource()==showRecommendationsButton){
 			try {
 				insertUserLikesIntoDB();
+				getRecommendedCarList();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			window.setScene(setRecommendationsScene());
+			try {
+				window.setScene(setRecommendationsScene());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -331,6 +389,17 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		return carObservableList;
 		
+	}
+	
+	public ObservableList<Car> getRecommendedCars() throws Exception{
+		ObservableList<Car> carObservableList = FXCollections.observableArrayList();
+		System.out.println("observe");
+		for(Car c : recommendedCars){
+			carObservableList.add(c);
+			System.out.println(c.getTitle());
+		}
+		
+		return carObservableList;
 	}
 	
 	private void insertUserLikesIntoDB() throws Exception{
@@ -399,6 +468,96 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		for(Integer i : priceList){
 			dbhelper.insertPricesIntoDB(user.getUserName(), i);
+		}
+		
+	}
+	
+	private void getRecommendedCarList() throws Exception{
+		
+		recommendedCars = new ArrayList<Car>();
+		
+		/**
+		 * get brands of user from DB
+		 */
+		
+		HashMap<String, Integer> brandsfromDB = dbhelper.getBrandsMapFromDB(user.getUserName());
+		
+		
+		/**
+		 * get the user's years from DB
+		 */
+		
+		HashMap<Integer, Integer> yearsfromDB = dbhelper.getYearsMapFromDB(user.getUserName());	
+		
+		/**
+		 * get the user's colors from DB
+		 */
+		
+		HashMap<String, Integer> colorsfromDB = dbhelper.getColorsMapFromDB(user.getUserName());
+		
+		
+		/**
+		 * get the user's cities from DB
+		 */
+		
+		HashMap<String, Integer> citiesfromDB = dbhelper.getCitiesMapFromDB(user.getUserName());
+		
+		
+		/**
+		 * get the user's kms from DB
+		 */
+		
+		ArrayList<Integer> kmsFromDB = dbhelper.getKmsListFromDB(user.getUserName());		
+		
+		/**
+		 * get the user's prices from DB
+		 */
+		
+		ArrayList<Integer> pricesFromDB = dbhelper.getPricesListFromDB(user.getUserName());
+		
+		/**
+		 * 
+		 * generate ideal car profile for the user
+		 * 
+		 */
+		
+		System.out.println("engine results");
+		
+		Recommender recommender = new Recommender(3, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
+		
+		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
+		
+		idealCarList = recommender.getIdealCarList();
+		
+		for(IdealCar idealCar : idealCarList){
+			System.out.println("brand: " + idealCar.getBrand()
+					+ " year: " + idealCar.getYear()
+					+ " color: " + idealCar.getColor()
+					+ " city: " + idealCar.getCity());
+		}
+		
+		/**
+		 * get recommended cars according to ideal cars of the user
+		 * 
+		 */
+		
+		ArrayList<Car> recommendedCarList = dbhelper.getRecommendedCarListFromDB(idealCarList);
+		
+		for(Car c : recommendedCarList){
+			System.out.println(c.getTitle() + " brand: " + c.getBrand() + " year: " + c.getYear() + " color: " + c.getColor() + " city: " + c.getCity());
+		}
+		
+		/**
+		 * eliminate liked cars in order not to show to the user if she already liked it
+		 * 
+		 */
+		
+		System.out.println("eliminated cars: ");
+		
+		recommendedCars = recommender.eliminateLikedCarsFromRecommendedCars(likedCars, recommendedCarList);
+		
+		for(Car c : recommendedCars){
+			System.out.println(c.getTitle());
 		}
 		
 	}

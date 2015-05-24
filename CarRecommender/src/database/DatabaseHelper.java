@@ -538,4 +538,177 @@ public class DatabaseHelper {
 		return carList;
 	}
 	
+	public ArrayList<Car> getSecondRecommendedCarListFromDB(ArrayList<IdealCar> idealCarList) throws SQLException{
+		/**
+		 * same as getRecommendedCarListFromDB only without Year parameter
+		 */
+		
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		Statement statement = connection.createStatement();
+		
+		ArrayList<Car> carList = new ArrayList<Car>();
+		
+		for(IdealCar idealCar : idealCarList){
+			
+			ResultSet resultset = statement.executeQuery("select * from cars where brand='" + idealCar.getBrand() + "'" +
+																					" and color='" + idealCar.getColor() + "'" +
+																					" and city='" + idealCar.getCity() + "'" +
+																					" and car_km<=" + idealCar.getKm_max() +
+																					" and car_km>=" + idealCar.getKm_min() +
+																					" and price<=" + idealCar.getPrice_max() +
+																					" and price>=" + idealCar.getPrice_min());
+			
+			while (resultset.next()){			
+				Car mCar = new Car();
+				mCar.setTitle(resultset.getString(1));
+				mCar.setBrand(resultset.getString(2));
+				mCar.setModel(resultset.getString(3));
+				mCar.setModelDetail(resultset.getString(4));
+				mCar.setYear(resultset.getInt(5));
+				mCar.setKm(resultset.getInt(6));
+				mCar.setColor(resultset.getString(7));
+				mCar.setPrice(resultset.getInt(8));
+				mCar.setCity(resultset.getString(9));
+				mCar.setTown(resultset.getString(10));
+				carList.add(mCar);
+			}
+			
+		}
+		
+		if(statement != null)
+			statement.close();
+		if(connection != null)
+			connection.close();
+		
+		return carList;
+	}
+	
+	public ArrayList<Car> getThirdRecommendedCarListFromDB(ArrayList<IdealCar> idealCarList) throws SQLException{
+		/**
+		 * same as getRecommendedCarListFromDB only without Year parameter and City
+		 */
+		
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		Statement statement = connection.createStatement();
+		
+		ArrayList<Car> carList = new ArrayList<Car>();
+		
+		for(IdealCar idealCar : idealCarList){
+			
+			ResultSet resultset = statement.executeQuery("select * from cars where brand='" + idealCar.getBrand() + "'" +
+																					" and color='" + idealCar.getColor() + "'" +
+																					" and car_km<=" + idealCar.getKm_max() +
+																					" and car_km>=" + idealCar.getKm_min() +
+																					" and price<=" + idealCar.getPrice_max() +
+																					" and price>=" + idealCar.getPrice_min());
+			
+			while (resultset.next()){			
+				Car mCar = new Car();
+				mCar.setTitle(resultset.getString(1));
+				mCar.setBrand(resultset.getString(2));
+				mCar.setModel(resultset.getString(3));
+				mCar.setModelDetail(resultset.getString(4));
+				mCar.setYear(resultset.getInt(5));
+				mCar.setKm(resultset.getInt(6));
+				mCar.setColor(resultset.getString(7));
+				mCar.setPrice(resultset.getInt(8));
+				mCar.setCity(resultset.getString(9));
+				mCar.setTown(resultset.getString(10));
+				carList.add(mCar);
+			}
+			
+		}
+		
+		if(statement != null)
+			statement.close();
+		if(connection != null)
+			connection.close();
+		
+		return carList;
+	}
+	
+	public ArrayList<Car> getFourthRecommendedCarListFromDB(ArrayList<IdealCar> idealCarList) throws SQLException{
+		/**
+		 * same as getRecommendedCarListFromDB only without Year parameter and City and Color
+		 */
+		
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		Statement statement = connection.createStatement();
+		
+		ArrayList<Car> carList = new ArrayList<Car>();
+		
+		for(IdealCar idealCar : idealCarList){
+			
+			ResultSet resultset = statement.executeQuery("select * from cars where brand='" + idealCar.getBrand() + "'" +
+																					" and car_km<=" + idealCar.getKm_max() +
+																					" and car_km>=" + idealCar.getKm_min() +
+																					" and price<=" + idealCar.getPrice_max() +
+																					" and price>=" + idealCar.getPrice_min());
+			
+			while (resultset.next()){			
+				Car mCar = new Car();
+				mCar.setTitle(resultset.getString(1));
+				mCar.setBrand(resultset.getString(2));
+				mCar.setModel(resultset.getString(3));
+				mCar.setModelDetail(resultset.getString(4));
+				mCar.setYear(resultset.getInt(5));
+				mCar.setKm(resultset.getInt(6));
+				mCar.setColor(resultset.getString(7));
+				mCar.setPrice(resultset.getInt(8));
+				mCar.setCity(resultset.getString(9));
+				mCar.setTown(resultset.getString(10));
+				carList.add(mCar);
+			}
+			
+		}
+		
+		if(statement != null)
+			statement.close();
+		if(connection != null)
+			connection.close();
+		
+		return carList;
+	}
+	
+	
+	public ArrayList<Car> getFifthRecommendedCarListFromDB(ArrayList<IdealCar> idealCarList) throws SQLException{
+		/**
+		 * only considering the price range
+		 */
+		
+		Connection connection = DriverManager.getConnection(JDBC_CREATE_URL);
+		Statement statement = connection.createStatement();
+		
+		ArrayList<Car> carList = new ArrayList<Car>();
+		
+		for(IdealCar idealCar : idealCarList){
+			
+			ResultSet resultset = statement.executeQuery("select * from cars where  price<=" + idealCar.getPrice_max() +
+																					" and price>=" + idealCar.getPrice_min());
+			
+			while (resultset.next()){			
+				Car mCar = new Car();
+				mCar.setTitle(resultset.getString(1));
+				mCar.setBrand(resultset.getString(2));
+				mCar.setModel(resultset.getString(3));
+				mCar.setModelDetail(resultset.getString(4));
+				mCar.setYear(resultset.getInt(5));
+				mCar.setKm(resultset.getInt(6));
+				mCar.setColor(resultset.getString(7));
+				mCar.setPrice(resultset.getInt(8));
+				mCar.setCity(resultset.getString(9));
+				mCar.setTown(resultset.getString(10));
+				carList.add(mCar);
+			}
+			
+		}
+		
+		if(statement != null)
+			statement.close();
+		if(connection != null)
+			connection.close();
+		
+		return carList;
+	}
+	
 }

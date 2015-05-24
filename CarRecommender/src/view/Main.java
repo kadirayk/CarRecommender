@@ -2,6 +2,8 @@ package view;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -218,13 +220,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		recommendedCarsTableView.getColumns().addAll(rtitleColumn, rbrandColumn, rmodelColumn, 
 				rmodelDetailColumn, ryearColumn, rkmColumn, rcolorColumn, rpriceColumn, rcityColumn, rtownColumn);
 		
+		Label likedLabel = new Label("Cars You Like");
+		Label recommendedLabel = new Label("Our Recommendations (Ordered by Best Recommendation)");
 		
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(5,5,5,5));
 		
-		
-		layout.getChildren().add(likedCarsTableView);
-		layout.getChildren().add(recommendedCarsTableView);
+		layout.getChildren().addAll(likedLabel, likedCarsTableView, recommendedLabel, recommendedCarsTableView);
 		
 		recommendationsScene = new Scene(layout, 600, 480);
 		
@@ -552,9 +554,33 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		 * 
 		 */
 		
+		ArrayList<Car> secondRecommendedCarList = dbhelper.getSecondRecommendedCarListFromDB(idealCarList);
+		ArrayList<Car> thirdRecommendedCarList = dbhelper.getThirdRecommendedCarListFromDB(idealCarList);
+		ArrayList<Car> fourthRecommendedCarList = dbhelper.getFourthRecommendedCarListFromDB(idealCarList);
+		ArrayList<Car> fifthRecommendedCarList = dbhelper.getFifthRecommendedCarListFromDB(idealCarList);
+		
+		for(Car c : secondRecommendedCarList){
+			recommendedCarList.add(c);
+		}
+		for(Car c : thirdRecommendedCarList){
+			recommendedCarList.add(c);
+		}
+		for(Car c : fourthRecommendedCarList){
+			recommendedCarList.add(c);
+		}
+		for(Car c : fifthRecommendedCarList){
+			recommendedCarList.add(c);
+		}
+		
+		
 		System.out.println("eliminated cars: ");
 		
 		recommendedCars = recommender.eliminateLikedCarsFromRecommendedCars(likedCars, recommendedCarList);
+		
+		Set<Car> carSet = new HashSet<>();
+		carSet.addAll(recommendedCars);
+		recommendedCars.clear();
+		recommendedCars.addAll(carSet);
 		
 		for(Car c : recommendedCars){
 			System.out.println(c.getTitle());

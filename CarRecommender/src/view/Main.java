@@ -40,12 +40,14 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	ListView<String> carListview;
 	TableView<Car> carTableView;
+	TableView<Car> likedCarsTableView;
 	Button enterButton;
 	Button showRecommendationsButton;
 	TextField userNameTF;
 	TextField crawlerPageCountTF;
 	Scene userNameScene;
 	Scene carListScene;
+	Scene recommendationsScene;
 	Stage window;
 	Crawler crawler;
 	int crawlerPageCount;
@@ -53,7 +55,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	DatabaseHelper dbhelper;
 	ArrayList<Car> dbCarList;
 	User user;
-	ArrayList<Car> likedCars;
+	static ArrayList<Car> likedCars;
 	
 	public static void main(String[] Args){
 
@@ -115,6 +117,67 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    root.getChildren().add(grid);
 		
 	    return userNameScene;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Scene setRecommendationsScene(){
+		
+		TableColumn<Car, String> titleColumn = new TableColumn<Car, String>("Title");
+		titleColumn.setMinWidth(200);
+		titleColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Title"));
+		
+		TableColumn<Car, String> brandColumn = new TableColumn<Car, String>("Brand");
+		brandColumn.setMinWidth(100);
+		brandColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Brand"));
+		
+		TableColumn<Car, String> modelColumn = new TableColumn<Car, String>("Model");
+		modelColumn.setMinWidth(100);
+		modelColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Model"));
+		
+		TableColumn<Car, String> modelDetailColumn = new TableColumn<Car, String>("Model Detail");
+		modelDetailColumn.setMinWidth(200);
+		modelDetailColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("ModelDetail"));
+		
+		TableColumn<Car, Integer> yearColumn = new TableColumn<Car, Integer>("Year");
+		yearColumn.setMinWidth(100);
+		yearColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("Year"));
+		
+		TableColumn<Car, Integer> kmColumn = new TableColumn<Car, Integer>("Km");
+		kmColumn.setMinWidth(100);
+		kmColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("Km"));
+		
+		TableColumn<Car, String> colorColumn = new TableColumn<Car, String>("Color");
+		colorColumn.setMinWidth(100);
+		colorColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Color"));
+		
+		TableColumn<Car, Integer> priceColumn = new TableColumn<Car, Integer>("Price");
+		priceColumn.setMinWidth(100);
+		priceColumn.setCellValueFactory(new PropertyValueFactory<Car, Integer>("Price"));
+		
+		TableColumn<Car, String> cityColumn = new TableColumn<Car, String>("City");
+		cityColumn.setMinWidth(100);
+		cityColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("City"));
+		
+		TableColumn<Car, String> townColumn = new TableColumn<Car, String>("Town");
+		townColumn.setMinWidth(100);
+		townColumn.setCellValueFactory(new PropertyValueFactory<Car, String>("Town"));
+		
+		likedCarsTableView = new TableView<Car>();
+		likedCarsTableView.setItems(getLikedCars());
+		likedCarsTableView.getColumns().addAll(titleColumn, brandColumn, modelColumn, 
+				modelDetailColumn, yearColumn, kmColumn, colorColumn, priceColumn, cityColumn, townColumn);
+		
+		
+		VBox layout = new VBox(10);
+		layout.setPadding(new Insets(5,5,5,5));
+		
+		
+		layout.getChildren().add(likedCarsTableView);
+		
+		recommendationsScene = new Scene(layout, 600, 480);
+		
+		return recommendationsScene;
+		
 	}
 	
 	
@@ -243,6 +306,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			window.setScene(setRecommendationsScene());
 		}
 		
 	}
@@ -340,8 +404,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 	
 	private void getCarListFromCrawlerToDB(int crawlerPageCount) throws Exception{
-		
-	    
+		    
 	    /**
 	     * get cars from crawler
 	     */

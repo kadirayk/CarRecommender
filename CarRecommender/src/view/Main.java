@@ -79,7 +79,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		enterButton.setOnAction(this);
 		
-		userNameScene = new Scene(new Group(), 360, 240);
+		userNameScene = new Scene(new Group(), 520, 240);
 
 	    userNameTF = new TextField ();
 	    
@@ -89,20 +89,23 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    
 	    Label crawlerPageCountLabel = new Label();
 	    crawlerPageCountLabel.setText("Enter Page Count: ");
+	    
+	    Label guideLabel = new Label("Press Enter to get Cars from sahibinden.com to our Database");
 	   
-	    crawlerPageCountTF = new TextField();	    
+	    crawlerPageCountTF = new TextField("1");	    
 	    
 	    GridPane grid = new GridPane();
 	    grid.setPadding(new Insets(90, 0, 0, 36));
 	    grid.setHgap(5);
 	    grid.setVgap(5);
 	    
-	    grid.add(userNameLabel, 0, 0);
-	    grid.add(userNameTF, 1, 0);
-	    grid.add(crawlerPageCountLabel, 0, 1);
-	    grid.add(crawlerPageCountTF, 1, 1);
+	    grid.add(guideLabel, 1, 0);
+	    grid.add(userNameLabel, 0, 1);
+	    grid.add(userNameTF, 1, 1);
+	    grid.add(crawlerPageCountLabel, 0, 2);
+	    grid.add(crawlerPageCountTF, 1, 2);
 	    
-	    grid.add(enterButton, 1, 2);
+	    grid.add(enterButton, 1, 3);
 	    
 	    Group root = (Group) userNameScene.getRoot();
 	    root.getChildren().add(grid);
@@ -113,6 +116,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Scene setCarListScene(){
+		
 		
 		TableColumn<Car, String> titleColumn = new TableColumn<Car, String>("Title");
 		titleColumn.setMinWidth(200);
@@ -192,6 +196,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		showRecommendationsButton.setOnAction(this);
 		
+		Label label = new Label("Recommendation will be based on the Cars you like, Click on the Cars to Like");
+		
+		layout.getChildren().add(label);
 		layout.getChildren().add(carTableView);
 		layout.getChildren().add(showRecommendationsButton);
 		
@@ -205,8 +212,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent event) {
 
 		if(event.getSource()==enterButton){
-			user.setUserName(userNameTF.getText());
-			crawlerPageCount = Integer.valueOf(crawlerPageCountTF.getText());
+			if(userNameTF.getText() != null && ! userNameTF.getText().trim().isEmpty()){
+				user.setUserName(userNameTF.getText().trim());				
+			}else{
+				AlertBox.Display("Error", "Please enter a user name");
+				System.out.println("user naaaaaaaaaame");
+				return;
+			}
+			if(crawlerPageCountTF.getText() != null && ! crawlerPageCountTF.getText().trim().isEmpty()){
+				crawlerPageCount = Integer.valueOf(crawlerPageCountTF.getText());
+			}else{
+				AlertBox.Display("Error", "Please enter a number of pages to crawl");
+				return;
+			}
 			try {
 				getCarListFromCrawlerToDB(crawlerPageCount);
 			} catch (Exception e) {

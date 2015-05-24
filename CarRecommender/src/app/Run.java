@@ -28,7 +28,7 @@ public class Run {
 		
 		ArrayList<Car> carList = new ArrayList<Car>();
 		
-		carList = crawler.getCarListFromUrl(5);
+		carList = crawler.getCarListFromUrl(10);
 		
 		for(int i = 0; i < carList.size(); i++){
 			System.out.println(carList.get(i).getTitle());
@@ -77,7 +77,7 @@ public class Run {
 		ArrayList<Car> likedCars = new ArrayList<Car>();
 		
 		for(Car c : dbCarList){
-			if(c.getTitle().startsWith("B")){
+			if(c.getTitle().startsWith("S")){
 				user.likes(c);
 				likedCars.add(c);
 				System.out.println(c.getTitle());
@@ -325,7 +325,7 @@ public class Run {
 		
 		System.out.println("engine results");
 		
-		Recommender recommender = new Recommender(10, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
+		Recommender recommender = new Recommender(2, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
 		
 		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
 		

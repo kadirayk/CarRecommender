@@ -36,12 +36,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	ListView<String> carListview;
 	TableView<Car> carTableView;
-	Button button;
+	Button enterButton;
+	Button showRecommendationsButton;
 	TextField userNameTF;
+	TextField crawlerPageCountTF;
 	Scene userNameScene;
 	Scene carListScene;
 	Stage window;
 	Crawler crawler;
+	int crawlerPageCount;
 	ArrayList<Car> carList;
 	DatabaseHelper dbhelper;
 	ArrayList<Car> dbCarList;
@@ -96,10 +99,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	
 	private Scene setUserNameScene(){
 		
-		button = new Button();
-		button.setText("Enter");
+		enterButton = new Button();
+		enterButton.setText("Enter");
 		
-		button.setOnAction(this);
+		enterButton.setOnAction(this);
 		
 		userNameScene = new Scene(new Group(), 360, 240);
 
@@ -108,14 +111,23 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    Label userNameLabel = new Label();
 	    userNameLabel.setText("User Name: ");
 	    
+	    
+	    Label crawlerPageCountLabel = new Label();
+	    crawlerPageCountLabel.setText("Enter Page Count: ");
+	   
+	    crawlerPageCountTF = new TextField();	    
+	    
 	    GridPane grid = new GridPane();
 	    grid.setPadding(new Insets(90, 0, 0, 36));
 	    grid.setHgap(5);
+	    grid.setVgap(5);
 	    
 	    grid.add(userNameLabel, 0, 0);
-	    grid.add(userNameTF, 2, 0);
+	    grid.add(userNameTF, 1, 0);
+	    grid.add(crawlerPageCountLabel, 0, 1);
+	    grid.add(crawlerPageCountTF, 1, 1);
 	    
-	    grid.add(button, 4, 0);
+	    grid.add(enterButton, 1, 2);
 	    
 	    Group root = (Group) userNameScene.getRoot();
 	    root.getChildren().add(grid);
@@ -199,7 +211,14 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		         }
 		     });
 		
+		
+		showRecommendationsButton = new Button();
+		showRecommendationsButton.setText("Show Recommendations");
+		
+		showRecommendationsButton.setOnAction(this);
+		
 		layout.getChildren().add(carTableView);
+		layout.getChildren().add(showRecommendationsButton);
 		
 		carListScene = new Scene(layout, 600, 480);
 		
@@ -210,10 +229,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	@Override
 	public void handle(ActionEvent event) {
 
-		if(event.getSource()==button){
+		if(event.getSource()==enterButton){
 			user.setUserName(userNameTF.getText());
-			window.setScene(setCarListScene());
-			
+			crawlerPageCount = Integer.valueOf(crawlerPageCountTF.getText());
+			window.setScene(setCarListScene());	
+		}else if(event.getSource()==showRecommendationsButton){
+			insertUserLikesIntoDB();
 		}
 		
 	}
@@ -227,6 +248,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		
 		return carObservableList;
+	}
+	
+	private void insertUserLikesIntoDB(){
+		
 	}
 	
 	

@@ -1,11 +1,13 @@
 package view;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import org.apache.commons.io.FileUtils;
 
 import core.Recommender;
 import javafx.application.Application;
@@ -33,6 +35,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Car;
 import model.IdealCar;
 import model.User;
@@ -80,6 +83,22 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		user = new User();
 	    
 		window.show();
+		
+		window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			
+			@Override
+			public void handle(WindowEvent arg0) {
+				System.out.println("closing");
+				try {
+					System.out.println(System.getProperty("user.dir"));
+					FileUtils.deleteDirectory(new File(System.getProperty("user.dir").trim() + "\\carrecommenderdb"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}); 
 		
 	}
 	
@@ -525,7 +544,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		System.out.println("engine results");
 		
-		Recommender recommender = new Recommender(3, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
+		Recommender recommender = new Recommender(10, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
 		
 		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
 		
@@ -554,33 +573,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		 * 
 		 */
 		
-		ArrayList<Car> secondRecommendedCarList = dbhelper.getSecondRecommendedCarListFromDB(idealCarList);
-		ArrayList<Car> thirdRecommendedCarList = dbhelper.getThirdRecommendedCarListFromDB(idealCarList);
-		ArrayList<Car> fourthRecommendedCarList = dbhelper.getFourthRecommendedCarListFromDB(idealCarList);
-		ArrayList<Car> fifthRecommendedCarList = dbhelper.getFifthRecommendedCarListFromDB(idealCarList);
-		
-		for(Car c : secondRecommendedCarList){
-			recommendedCarList.add(c);
-		}
-		for(Car c : thirdRecommendedCarList){
-			recommendedCarList.add(c);
-		}
-		for(Car c : fourthRecommendedCarList){
-			recommendedCarList.add(c);
-		}
-		for(Car c : fifthRecommendedCarList){
-			recommendedCarList.add(c);
-		}
-		
-		
 		System.out.println("eliminated cars: ");
 		
 		recommendedCars = recommender.eliminateLikedCarsFromRecommendedCars(likedCars, recommendedCarList);
-		
-		Set<Car> carSet = new HashSet<>();
-		carSet.addAll(recommendedCars);
-		recommendedCars.clear();
-		recommendedCars.addAll(carSet);
 		
 		for(Car c : recommendedCars){
 			System.out.println(c.getTitle());

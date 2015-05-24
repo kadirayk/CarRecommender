@@ -325,7 +325,7 @@ public class Run {
 		
 		System.out.println("engine results");
 		
-		Recommender recommender = new Recommender(3, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
+		Recommender recommender = new Recommender(10, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
 		
 		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
 		

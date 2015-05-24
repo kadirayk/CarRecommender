@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun May 24 23:45:06 EEST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014d-87ac-0385-000005b6f6d0 
+on database directory C:\Users\Kadiray\Documents\CarRecommender\CarRecommender\carrecommenderdb with class loader sun.misc.Launcher$AppClassLoader@927e4be 
+Loaded from file:/C:/Users/Kadiray/Documents/CarRecommender/CarRecommender/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_75-b13
+user.dir=C:\Users\Kadiray\Documents\CarRecommender\CarRecommender
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

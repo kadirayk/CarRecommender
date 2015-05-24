@@ -1,15 +1,11 @@
 package view;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.commons.io.FileUtils;
-
-import core.Recommender;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,15 +19,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -40,6 +33,10 @@ import model.Car;
 import model.IdealCar;
 import model.User;
 import network.Crawler;
+
+import org.apache.commons.io.FileUtils;
+
+import core.Recommender;
 import database.DatabaseHelper;
 
 
@@ -49,6 +46,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	TableView<Car> carTableView;
 	TableView<Car> likedCarsTableView;
 	TableView<Car> recommendedCarsTableView;
+	Button refresButton;
 	Button enterButton;
 	Button showRecommendationsButton;
 	TextField userNameTF;
@@ -123,7 +121,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    
 	    Label guideLabel = new Label("Press Enter to get Cars from sahibinden.com to our Database");
 	   
-	    crawlerPageCountTF = new TextField("1");	    
+	    crawlerPageCountTF = new TextField("10");	    
 	    
 	    GridPane grid = new GridPane();
 	    grid.setPadding(new Insets(90, 0, 0, 36));
@@ -242,10 +240,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Label likedLabel = new Label("Cars You Like");
 		Label recommendedLabel = new Label("Our Recommendations (Ordered by Best Recommendation)");
 		
+		refresButton = new Button("Refresh");
+		refresButton.setOnAction(this);
+		
 		VBox layout = new VBox(10);
 		layout.setPadding(new Insets(5,5,5,5));
 		
-		layout.getChildren().addAll(likedLabel, likedCarsTableView, recommendedLabel, recommendedCarsTableView);
+		layout.getChildren().addAll(refresButton, likedLabel, likedCarsTableView, recommendedLabel, recommendedCarsTableView);
 		
 		recommendationsScene = new Scene(layout, 600, 480);
 		
@@ -386,6 +387,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(event.getSource()==refresButton){
+			window.setScene(setCarListScene());
 		}
 		
 	}

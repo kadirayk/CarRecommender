@@ -17,6 +17,8 @@ public class Crawler {
 		
 		Document doc = null;
 		
+
+		
 		for(int j = 0; j < maxPageNum; j++){
 			
 			try {
@@ -24,7 +26,16 @@ public class Crawler {
 				doc = Jsoup.connect("http://www.sahibinden.com/otomobil?pagingOffset=" + (j * 20) ).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6").timeout(5000).get();	
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+
+//				set proxy if sahibinden.com blocks the ip		
+				System.setProperty("http.proxyHost", "195.151.225.245"); // set proxy server 46.31.112.92
+				System.setProperty("http.proxyPort", "8080");
+				try {
+					doc = Jsoup.connect("http://www.sahibinden.com/otomobil?pagingOffset=" + (j * 20) ).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6").timeout(5000).get();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 				e.printStackTrace();
 			}
 			

@@ -76,12 +76,10 @@ public class Run {
 		
 		ArrayList<Car> likedCars = new ArrayList<Car>();
 		
-		for(Car c : dbCarList){
-			if(c.getTitle().startsWith("S")){
-				user.likes(c);
-				likedCars.add(c);
-				System.out.println(c.getTitle());
-			}
+		for(int i = 0; i <30; i++){
+			user.likes(dbCarList.get(i));
+			likedCars.add(dbCarList.get(i));
+			System.out.println(dbCarList.get(i).getTitle() + "--------------------------------------------");
 				
 		}
 		
@@ -325,7 +323,7 @@ public class Run {
 		
 		System.out.println("engine results");
 		
-		Recommender recommender = new Recommender(2, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
+		Recommender recommender = new Recommender(10, brandsfromDB, yearsfromDB, colorsfromDB, citiesfromDB, pricesFromDB, kmsFromDB);
 		
 		ArrayList<IdealCar> idealCarList = new ArrayList<IdealCar>();
 		

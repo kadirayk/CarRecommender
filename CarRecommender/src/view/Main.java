@@ -64,31 +64,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		window.setTitle("Car Recommender");		
 		
 	    window.setScene(setUserNameScene());
-	    
-	    
-	    
-	    /**
-	     * get cars from crawler
-	     */
-	    
-	    crawler = new Crawler();
-		
-		carList = new ArrayList<Car>();
-		
-		carList = crawler.getCarListFromUrl(5);
-		
-		/**
-		 * insert cars from crawler to DB
-		 */
-		
-		dbhelper = new DatabaseHelper();
-		dbhelper.createDB();
-
-		for(int i = 0; i < carList.size(); i++){
-			dbhelper.insertCarIntoDB(carList.get(i));
-		}		
-	
-		dbCarList = dbhelper.getCarListFromDB();
 		
 		user = new User();
 	    
@@ -232,6 +207,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		if(event.getSource()==enterButton){
 			user.setUserName(userNameTF.getText());
 			crawlerPageCount = Integer.valueOf(crawlerPageCountTF.getText());
+			try {
+				getCarListFromCrawlerToDB(crawlerPageCount);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			window.setScene(setCarListScene());	
 		}else if(event.getSource()==showRecommendationsButton){
 			insertUserLikesIntoDB();
@@ -254,6 +235,32 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 	}
 	
+	private void getCarListFromCrawlerToDB(int crawlerPageCount) throws Exception{
+		
+	    
+	    /**
+	     * get cars from crawler
+	     */
+	    
+	    crawler = new Crawler();
+		
+		carList = new ArrayList<Car>();
+		
+		carList = crawler.getCarListFromUrl(crawlerPageCount);
+		
+		/**
+		 * insert cars from crawler to DB
+		 */
+		
+		dbhelper = new DatabaseHelper();
+		dbhelper.createDB();
+
+		for(int i = 0; i < carList.size(); i++){
+			dbhelper.insertCarIntoDB(carList.get(i));
+		}		
 	
+		dbCarList = dbhelper.getCarListFromDB();
+		
+	}
 	
 }

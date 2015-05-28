@@ -388,7 +388,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				e.printStackTrace();
 			}
 		}else if(event.getSource()==refresButton){
-			window.setScene(setCarListScene());
+			try {
+				window.setScene(setRecommendationsScene());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
